@@ -509,36 +509,97 @@ void layTenChinh(char hoTen[], char tenChinh[]) {
     tenChinh[idx] = '\0';
 }
 
-void XemDiemMotSV(char maTruyenVao[], char monSua[], int cotSua) {
-    char ma[20];
+vvoid XemDiemMotSV(char maTruyenVao[], char monSua[], int cotSua) {
+    char nhap[50], nhapUP[50];
     int i, j, k, d, cheDoXemDocLap = 0; 
     float l1, l2, p1, p2, pr, fi, tb;
+    int indexGoc[40];
+    int soLuongTimThay = 0;
     if (strcmp(maTruyenVao, "") == 0) {
         cheDoXemDocLap = 1; 
     } else {
-        strcpy(ma, maTruyenVao); 
+        strcpy(nhap, maTruyenVao); 
     }
     while (1) {
         if (cheDoXemDocLap) {
             system("cls");
             printf("\n");
             printCenter(BOLD_CYAN "+------------------------------------------+" RESET);
-            printCenter(BOLD_CYAN "|      XEM DIEM CHI TIET MOT SINH VIEN     |" RESET);
-            printCenter(BOLD_CYAN "+------------------------------------------+" RESET);       
+            printCenter(BOLD_CYAN "|         TRA CUU DIEM MOT SINH VIEN       |" RESET);
+            printCenter(BOLD_CYAN "+------------------------------------------+" RESET);        
             while (1) {
+				soLuongTimThay = 0; 
                 printf("\n");
                 for(d = 0; d < 40; d++) printf(" ");
-                printf(YELLOW "Vui long nhap MSSV (0 de huy): " RESET);
-                scanf("%s", ma);
-                if (strcmp(ma, "0") == 0) return;
-                k = binary_search(ma); 
-                if (k == -1) xoaDongVuaNhap(); else break;
+                printf(YELLOW "Nhap MSSV hoac TEN (0 de huy): " RESET);
+                fflush(stdin);
+                fgets(nhap, sizeof(nhap), stdin);
+                nhap[strcspn(nhap, "\n")] = '\0';
+                if (strcmp(nhap, "0") == 0) return;
+                if (strlen(nhap) == 0) { xoaDongVuaNhap(); continue; }
+                k = binary_search(nhap); 
+                if (k != -1) {
+                    break; 
+                }
+				strcpy(nhapUP, nhap);
+                strupr(nhapUP);
+                for (i = 0; i < n; i++) {
+                    char tChinh[50];
+                    layTenChinh(tenSV[i], tChinh); 
+                    strupr(tChinh);
+                    if (strstr(tChinh, nhapUP) != NULL) {
+                        indexGoc[soLuongTimThay] = i;
+                        soLuongTimThay++;
+                    }
+                }
+                if (soLuongTimThay == 0) {
+                    xoaDongVuaNhap();
+                    continue; 
+                }
+                if (soLuongTimThay == 1) {
+                    k = indexGoc[0];
+                    break;
+                }
+                char tempRow[200]; 
+                printf("\n");
+                sprintf(tempRow, GREEN "Tim thay %d sinh vien phu hop:" RESET, soLuongTimThay);
+                printCenter(tempRow);
+                printCenter("+-----+---------------+--------------------------------+");
+                printCenter("| STT |      MSSV     |           HO VA TEN            |");
+                printCenter("+-----+---------------+--------------------------------+");
+                for (i = 0; i < soLuongTimThay; i++) {
+                    int idx = indexGoc[i];
+                    sprintf(tempRow, "| %-3d | %-13s | %-30s |", i + 1, maSV[idx], tenSV[idx]);
+                    printCenter(tempRow);
+                }   
+                printCenter("+-----+---------------+--------------------------------+");
+				int chon;
+				while (1) {
+    				printf("\n");
+					printf("                     " BOLD_CYAN "Nhap STT sinh vien muon xem (0 de nhap lai): " RESET);
+    				if (scanf("%d", &chon) != 1) {
+        				while (getchar() != '\n');
+        				xoaDongVuaNhap(); 
+        				continue;
+    				}
+					if (chon == 0) break;
+    				if (chon >= 1 && chon <= soLuongTimThay) {
+        				k = indexGoc[chon - 1];
+        				break;
+    				}
+    				xoaDongVuaNhap();
+				}   
+                if (chon == 0) {
+                    cheDoXemDocLap = 2; 
+                    break;
+                }
+                break; 
             }
+            if (cheDoXemDocLap == 2) { cheDoXemDocLap = 1; continue; }
         } else {
-            k = binary_search(ma);
+            k = binary_search(nhap);
             if (k == -1) return;
         }
-        
         system("cls");
         printf("\n");
         if (!cheDoXemDocLap) {
@@ -548,37 +609,36 @@ void XemDiemMotSV(char maTruyenVao[], char monSua[], int cotSua) {
         printf(YELLOW "   MSSV      : " RESET "%s\n", maSV[k]);
         printf(YELLOW "   HO VA TEN : " RESET "%s\n", tenSV[k]);
         printf("\n");
-        printCenter(BOLD_CYAN "------------------- BANG DIEM CUA SINH VIEN -------------------" RESET);
+        printCenter("------------------- BANG DIEM CUA SINH VIEN -------------------");
         printf("\n");
         printCenter("+------------+------+------+------+------+------+-------+-------+");
         printCenter("|  Hoc phan  | Lab1 | Lab2 | PT1  | PT2  | Pre  | Final |  TB   |");
         printCenter("+------------+------+------+------+------+------+-------+-------+");
-
         for (i = 0; i < soHp; i++) {
             char file[50];
             char row[250];
             sprintf(file, "%s.txt", dsHocPhan[i]);
             FILE *f = fopen(file, "r");
             int found = 0;
-		if (f) {
-    		int sl;
-    		if (fscanf(f, "%d\n", &sl) == 1) {
-        		char maF[20], tenTam[100];
-        		for (j = 0; j < sl; j++) {
-            		if (fscanf(f, "%s ", maF) != 1) break;
-            		if (fscanf(f, "%[^0-9-]", tenTam) != 1) break; 
-            		if (fscanf(f, "%f %f %f %f %f %f\n", &l1, &l2, &p1, &p2, &pr, &fi) == 6) {
-                		int len = strlen(tenTam);
-                		while(len > 0 && tenTam[len-1] == ' ') {
-                    		tenTam[len-1] = '\0';
-                    		len--;
-                		}
-                		if (strcmp(maF, ma) == 0) { found = 1; break; }
-            		}
-        		}
-    		}
-    		fclose(f);
-		}
+            if (f) {
+                int sl;
+                if (fscanf(f, "%d\n", &sl) == 1) {
+                    char maF[20], tenTam[100];
+                    for (j = 0; j < sl; j++) {
+                        if (fscanf(f, "%s ", maF) != 1) break;
+                        if (fscanf(f, "%[^0-9-]", tenTam) != 1) break; 
+                        if (fscanf(f, "%f %f %f %f %f %f\n", &l1, &l2, &p1, &p2, &pr, &fi) == 6) {
+                            int len = strlen(tenTam);
+                            while(len > 0 && tenTam[len-1] == ' ') {
+                                tenTam[len-1] = '\0';
+                                len--;
+                            }
+                            if (strcmp(maF, maSV[k]) == 0) { found = 1; break; }
+                        }
+                    }
+                }
+                fclose(f);
+            }
             if (found) {
                 char sL1[30], sL2[30], sP1[30], sP2[30], sPr[30], sFi[30], sTb[30];
                 int laMonSua = (strcmp(dsHocPhan[i], monSua) == 0);
@@ -611,7 +671,6 @@ void XemDiemMotSV(char maTruyenVao[], char monSua[], int cotSua) {
         printCenter("+------------+------+------+------+------+------+-------+-------+");
         printf("\n");
         if (!cheDoXemDocLap) return; 
-
         printCenter(YELLOW "Nhan phim bat ky de tiep tuc tra cuu..." RESET);
         getch();
     }
