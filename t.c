@@ -459,7 +459,7 @@ void Nhap() {
                     if (lab1[i] != -1 && lab2[i] != -1 && pt1[i] != -1 && 
                         pt2[i] != -1 && pre[i] != -1 && final[i] != -1) {
                         printf(RED "\n [!] Sinh vien %s da co du diem! Dang chuyen..." RESET, tenSV[i]);
-                        Sleep(900);
+                        Sleep(400);
                         continue;
                     } else {
                         if (NhapDiemMotSV(i) == 0) {
