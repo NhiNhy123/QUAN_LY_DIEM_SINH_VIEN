@@ -531,7 +531,7 @@ vvoid XemDiemMotSV(char maTruyenVao[], char monSua[], int cotSua) {
 				soLuongTimThay = 0; 
                 printf("\n");
                 for(d = 0; d < 40; d++) printf(" ");
-                printf(YELLOW "Nhap MSSV hoac TEN (0 de huy): " RESET);
+                printf(YELLOW "Nhap MSSV hoac TEN SINH VIEN (0 de huy): " RESET);
                 fflush(stdin);
                 fgets(nhap, sizeof(nhap), stdin);
                 nhap[strcspn(nhap, "\n")] = '\0';
