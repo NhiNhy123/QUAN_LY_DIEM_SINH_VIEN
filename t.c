@@ -1039,49 +1039,6 @@ void Sua() {
     }
 }
 
-void InbangSapXep() {
-    int demA = 0, demB = 0, demC = 0, demD = 0, demF = 0;
-    int i, j;
-    system("cls");
-    printf("\n" BOLD_CYAN "------------------------------------------ BANG DIEM MON %s -------------------------------------------" RESET "\n\n", tenHp);
-    printf(CYAN "+-----+------------+---------------------+------+------+------+------+-------+-------+-------+----------+\n" RESET);
-    printf("| STT |  Ma so SV  |       Ho va ten     | Lab1 | Lab2 | PT1  | PT2  |  Pre  | Final |  TB   | XEP LOAI |\n");
-    printf(CYAN "+-----+------------+---------------------+------+------+------+------+-------+-------+-------+----------+\n" RESET);
-    for (i = 0; i < n; i++) {
-        float diem[6] = {lab1[i], lab2[i], pt1[i], pt2[i], pre[i], final[i]};
-        int daydu = 1;
-        for (j = 0; j < 6; j++) {
-            if (diem[j] == -1) {
-                daydu = 0;
-                break;
-            }
-        }
-        printf("| %-3d | %-10s | %-19.19s | ", i + 1, maSV[i], tenSV[i]);
-        for (j = 0; j < 6; j++) {
-            if (diem[j] == -1) {
-                if (j >= 4) printf("%-5s | ", "N/A"); 
-                else printf("%-4s | ", "N/A");      
-            } else {
-                if (j >= 4) printf("%-5.1f | ", diem[j]);
-                else printf("%-4.1f | ", diem[j]);
-            }
-        }
-        if (daydu) {
-            float tb = tinhTB(i);
-            char xl = xepLoai(tb);   
-            printf("%-5.1f |    %-5c |\n", tb, xl);           
-            if (xl == 'A') demA++;
-            else if (xl == 'B') demB++;
-            else if (xl == 'C') demC++;
-            else if (xl == 'D') demD++;
-            else demF++;
-        } else {
-            printf("%-5s |    %-5s |\n", "N/A", "N/A");
-        }
-    }
-    printf(CYAN "+-----+------------+---------------------+------+------+------+------+-------+-------+-------+----------+\n" RESET);
-}
-
 float temp_dtb[mx];
 
 void swap1 (float *a, float *b) {
@@ -1137,41 +1094,105 @@ void QuickSort (int left , int right, int chon) {
 
 void SapXep() {
     char line[100];
-    int chon;
-    int k;
+    int chon, i, j, k;
+    
     while(1) {
         if (HocPhan() == 0) return; 
-        for (k = 0; k < n; k++) {
-            temp_dtb[k] = tinhTB(k);
-        }
+        
         while(1) {
             system("cls");
             int d;
-            for(d = 0; d < 10; d++) printf("\n");
+            for(d = 0; d < 5; d++) printf("\n");
             printf(BOLD_CYAN);
             sprintf(line, "--- SAP XEP (Hoc phan: %s) ---", tenHp);
             printCenter(line);
-        	printf(RESET);
-        	printCenter("+------------------------------------------+");
-        	printCenter("|  1. Diem trung binh Tang dan             |");
-        	printCenter("|  2. Diem trung binh Giam dan             |");
-        	printCenter("|  0. Quay lai Menu chinh                  |");
-        	printCenter("+------------------------------------------+");
-        	printf("\n");
+            printf(RESET);
+            printCenter("+------------------------------------------+");
+            printCenter("|  1. Diem trung binh Tang dan             |");
+            printCenter("|  2. Diem trung binh Giam dan             |");
+            printCenter("|  0. Quay lai Chon mon hoc                |");
+            printCenter("+------------------------------------------+");
+            printf("\n");
             for(d = 0; d < 48; d++) printf(" ");
             printf("Chon thao tac: ");
+            
             if (scanf("%d", &chon) != 1) {
                 while (getchar() != '\n'); 
                 continue;
             }
             if (chon == 0) break; 
+            
             if (chon == 1 || chon == 2) {
-                QuickSort(0, n - 1, chon);
-                InbangSapXep();
+                int bieuDienThucTe = 0;
+                for (i = 0; i < n; i++) {
+                    float diem[6] = {lab1[i], lab2[i], pt1[i], pt2[i], pre[i], final[i]};
+                    int daydu = 1;
+                    for (j = 0; j < 6; j++) {
+                        if (diem[j] == -1) { daydu = 0; break; }
+                    }
+                    if (daydu) {
+                        temp_dtb[i] = tinhTB(i);
+                        bieuDienThucTe++;
+                    } else {
+                        if (chon == 1) {
+                            temp_dtb[i] = 99.0; 
+						} else {
+                            temp_dtb[i] = -99.0;
+                        }
+                    }
+                }
+                for (i = 0; i < n - 1; i++) {
+                    for (j = i + 1; j < n; j++) {
+                        int logic_day_xuong = 0;
+                        if (chon == 1 && temp_dtb[i] == 99.0 && temp_dtb[j] != 99.0) logic_day_xuong = 1;
+                        if (chon == 2 && temp_dtb[i] == -99.0 && temp_dtb[j] != -99.0) logic_day_xuong = 1;
+
+                        if (logic_day_xuong) {
+                            swap(i, j);
+                            swap1(&temp_dtb[i], &temp_dtb[j]);
+                        }
+                    }
+                }
+                if (bieuDienThucTe > 1) {
+                    QuickSort(0, bieuDienThucTe - 1, chon);
+                }
+                system("cls");
+                printf("\n" BOLD_CYAN "-------------------------------------------- BANG DIEM MON %s -----------------------------------------" RESET "\n\n", tenHp);
+                printf(CYAN "+-----+------------+---------------------+------+------+------+------+-------+-------+-------+----------+\n" RESET);
+                printf("| STT |  Ma so SV  |       Ho va ten     | Lab1 | Lab2 | PT1  | PT2  |  Pre  | Final |  TB   | XEP LOAI |\n");
+                printf(CYAN "+-----+------------+---------------------+------+------+------+------+-------+-------+-------+----------+\n" RESET);
+                
+                for (i = 0; i < n; i++) {
+                    float diem[6] = {lab1[i], lab2[i], pt1[i], pt2[i], pre[i], final[i]};
+                    int daydu = 1;
+                    for (j = 0; j < 6; j++) {
+                        if (diem[j] == -1) { daydu = 0; break; }
+                    }
+                    printf("| %-3d | %-10s | %-19.19s | ", i + 1, maSV[i], tenSV[i]);
+                    for (j = 0; j < 6; j++) {
+                        if (diem[j] == -1) {
+                            if (j >= 4) printf("%-5s | ", "N/A"); 
+                            else printf("%-4s | ", "N/A");      
+                        } else {
+                            if (j >= 4) printf("%-5.1f | ", diem[j]);
+                            else printf("%-4.1f | ", diem[j]);
+                        }
+                    }
+                    if (daydu) {
+                        float tb = tinhTB(i);
+                        char xl = xepLoai(tb);   
+                        printf("%-5.1f |    %-5c |\n", tb, xl);           
+                    } else {
+                        printf("%-5s |    %-5s |\n", "N/A", "N/A");
+                    }
+                }
+                printf(CYAN "+-----+------------+---------------------+------+------+------+------+-------+-------+-------+----------+\n" RESET);
+
                 printf("\n");
                 printCenter(GREEN "=> DA SAP XEP THANH CONG!" RESET);
-                printCenter("Nhan phim bat ky de tiep tuc...");
+                printCenter("Nhan phim bat ky de quay lai menu sap xep...");
                 getch();
+                docFile(); 
             }
         }
     }
