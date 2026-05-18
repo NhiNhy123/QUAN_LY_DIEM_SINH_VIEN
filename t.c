@@ -36,7 +36,7 @@ float lab1[mx], lab2[mx], pt1[mx], pt2[mx], pre[mx], final[mx];
 
 int n = 40;
 
-char dsHocPhan[mx_hp][30] = {"CTDL", "PPT", "TRR"};
+char dsHocPhan[mx_hp][100] = {"Cau Truc Du Lieu", "Phuong Phap Tinh", "Toan Roi Rac"};
 int soHp = 3;
 
 char tenHp[30];
@@ -103,9 +103,9 @@ void docDanhSachMon() {
     FILE *f = fopen("DanhSachMon.txt", "r");
     if (!f) {
         soHp = 3;
-        strcpy(dsHocPhan[0], "CTDL");
-        strcpy(dsHocPhan[1], "PPT");
-        strcpy(dsHocPhan[2], "TRR");
+        strcpy(dsHocPhan[0], "Cau Truc Du Lieu");
+        strcpy(dsHocPhan[1], "Phuong Phap Tinh");
+        strcpy(dsHocPhan[2], "Toan Roi Rac");
         return;
     }
     fscanf(f, "%d\n", &soHp); 
