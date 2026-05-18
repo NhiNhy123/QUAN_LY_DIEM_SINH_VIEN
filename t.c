@@ -486,11 +486,11 @@ void Nhap() {
 int binary_search(char *ma) {
     int left = 0, right = n - 1;
     while (left <= right) {
-        int m = (left + right)/2;
-        int k = strcmp(maSV[m],ma);
+        int m = (left + right) / 2;
+        int k = strcmp(maSV[m], ma);
         if (k == 0) return m;
         else if (k < 0) left = m + 1;
-            else right = m - 1;
+        else right = m - 1;
     }
     return -1;
 }
@@ -509,7 +509,7 @@ void layTenChinh(char hoTen[], char tenChinh[]) {
     tenChinh[idx] = '\0';
 }
 
-vvoid XemDiemMotSV(char maTruyenVao[], char monSua[], int cotSua) {
+void XemDiemMotSV(char maTruyenVao[], char monSua[], int cotSua) {
     char nhap[50], nhapUP[50];
     int i, j, k, d, cheDoXemDocLap = 0; 
     float l1, l2, p1, p2, pr, fi, tb;
@@ -611,9 +611,9 @@ vvoid XemDiemMotSV(char maTruyenVao[], char monSua[], int cotSua) {
         printf("\n");
         printCenter("------------------- BANG DIEM CUA SINH VIEN -------------------");
         printf("\n");
-        printCenter("+------------+------+------+------+------+------+-------+-------+");
-        printCenter("|  Hoc phan  | Lab1 | Lab2 | PT1  | PT2  | Pre  | Final |  TB   |");
-        printCenter("+------------+------+------+------+------+------+-------+-------+");
+        printCenter("+-------------------+------+------+------+------+------+-------+------+");
+        printCenter("|     Hoc phan      | Lab1 | Lab2 | PT1  | PT2  | Pre  | Final |  TB  |");
+        printCenter("+-------------------+------+------+------+------+------+-------+------+");
         for (i = 0; i < soHp; i++) {
             char file[50];
             char row[250];
@@ -660,15 +660,15 @@ vvoid XemDiemMotSV(char maTruyenVao[], char monSua[], int cotSua) {
                     tb = (l1 + l2 + p1 + p2 + pr + fi) / 6.0;
                     sprintf(sTb, "%-4.1f", tb);
                 }
-                sprintf(row, "| %-10s | %-4s | %-4s | %-4s | %-4s | %-5s | %-5s | %-4s |", 
+                sprintf(row, "| %-17s | %-4s | %-4s | %-4s | %-4s | %-5s | %-5s | %-4s |", 
                         dsHocPhan[i], sL1, sL2, sP1, sP2, sPr, sFi, sTb);
             } else {
-                sprintf(row, "| %-10s | %-4s | %-4s | %-4s | %-4s | %-4s | %-5s | %-4s |", 
+                sprintf(row, "| %-17s | %-4s | %-4s | %-4s | %-4s | %-4s | %-5s | %-4s |", 
                         dsHocPhan[i], "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A");
             }
             printCenter(row);
         }
-        printCenter("+------------+------+------+------+------+------+-------+-------+");
+        printCenter("+-------------------+------+------+------+------+------+-------+------+");
         printf("\n");
         if (!cheDoXemDocLap) return; 
         printCenter(YELLOW "Nhan phim bat ky de tiep tuc tra cuu..." RESET);
@@ -776,7 +776,7 @@ void Sua() {
     char nhapTimKiem[100]; 
     char tuKhoaUp[100];
     char ma[20];
-    char chonMon[20];
+    char chonMon[50];
     int chonCot, tiep;
     int i, j, k, d;
     int indexGoc[100];     
@@ -798,12 +798,12 @@ void Sua() {
 
             if (strcmp(nhapTimKiem, "0") == 0) return;
             if (strlen(nhapTimKiem) == 0) continue;
-			k = binary_search(nhapTimKiem); 
+            k = binary_search(nhapTimKiem); 
             if (k != -1) {
                 strcpy(ma, maSV[k]); 
                 break; 
             }
-			strcpy(tuKhoaUp, nhapTimKiem);
+            strcpy(tuKhoaUp, nhapTimKiem);
             strupr(tuKhoaUp);
 
             soLuongTimThay = 0;
@@ -835,7 +835,7 @@ void Sua() {
             printCenter(tieuDe);
             
             printCenter(BOLD_CYAN "+-----+---------------+-------------------------------------+" RESET);
-            printCenter(BOLD_CYAN "| STT |     MSSV      |              HO VA TEN              |" RESET);
+            printCenter(BOLD_CYAN "| STT |      MSSV     |              HO VA TEN              |" RESET);
             printCenter(BOLD_CYAN "+-----+---------------+-------------------------------------+" RESET);
             for (i = 0; i < soLuongTimThay; i++) {
                 char row[150];
@@ -866,9 +866,10 @@ void Sua() {
             }
             if (hopLe) break; 
         }
+        
         int daCoItNhatMotDauDiem = 0;
         for (i = 0; i < soHp; i++) {
-            char fileCheck[50];
+            char fileCheck[100];
             sprintf(fileCheck, "%s.txt", dsHocPhan[i]);
             FILE *fCheck = fopen(fileCheck, "r");
             if (fCheck) {
@@ -907,16 +908,26 @@ void Sua() {
             int indexMonCanSua = -1;
             while (1) {
                 printf(YELLOW "Nhap TEN HOC PHAN muon sua: " RESET);
-                scanf("%s", chonMon);
+                fflush(stdin);
+                fgets(chonMon, sizeof(chonMon), stdin);
+                chonMon[strcspn(chonMon, "\n")] = '\0';
                 strupr(chonMon);
+                
                 for (i = 0; i < soHp; i++) {
-                    if (strcmp(dsHocPhan[i], chonMon) == 0) { indexMonCanSua = i; break; }
+                    char tempHp[50];
+                    strcpy(tempHp, dsHocPhan[i]);
+                    strupr(tempHp);
+                    if (strcmp(tempHp, chonMon) == 0) { 
+                        indexMonCanSua = i; 
+                        break; 
+                    }
                 }
                 if (indexMonCanSua != -1) break;
                 xoaDongVuaNhap();
             }
-            char fileSua[50];
-            sprintf(fileSua, "%s.txt", chonMon);
+            
+            char fileSua[100];
+            sprintf(fileSua, "%s.txt", dsHocPhan[indexMonCanSua]);
             int slTam;
             char maTam[40][20], tenTam[40][100];
             float bL1[40], bL2[40], bP1[40], bP2[40], bPr[40], bFi[40];
@@ -924,6 +935,13 @@ void Sua() {
             int timThaySVTrongFile = 0;
 
             FILE *fIn = fopen(fileSua, "r");
+            if (!fIn) {
+                if (strcmp(dsHocPhan[indexMonCanSua], "CAU TRUC DU LIEU") == 0) {
+                    fIn = fopen("CTDL.txt", "r");
+                    if (fIn) strcpy(fileSua, "CTDL.txt");
+                }
+            }
+
             if (fIn) {
                 if (fscanf(fIn, "%d\n", &slTam) == 1) {
                     for (i = 0; i < slTam; i++) {
@@ -941,12 +959,12 @@ void Sua() {
             }
 
             if (!timThaySVTrongFile) {
-                printf(RED "(!) Sinh vien khong co trong lop hoc phan %s.\n" RESET, chonMon);
+                printf(RED "(!) Sinh vien khong co trong lop hoc phan %s.\n" RESET, dsHocPhan[indexMonCanSua]);
                 getch();
                 continue; 
             }
 
-            printf(GREEN "CHON COT CAN SUA CUA MON %s:" RESET "\n", chonMon);
+            printf(GREEN "CHON COT CAN SUA CUA MON %s:" RESET "\n", dsHocPhan[indexMonCanSua]);
             printf(MAGENTA "1.Lab1   2.Lab2   3.PT1   4.PT2   5.Pre   6.Final" RESET "\n");
             
             while (1) {
@@ -969,7 +987,7 @@ void Sua() {
                 
                 if (diemHienTai == -1.0) {
                     xoaDongVuaNhap(); 
-                    printf(RED "   (!) Cot nay chua co diem (N/A), khong the sua! Vui long chon cot khac.\n" RESET);
+                    printf(RED "    (!) Cot nay chua co diem (N/A), khong the sua! Vui long chon cot khac.\n" RESET);
                     Sleep(1000);
                     xoaDongVuaNhap(); 
                     continue; 
@@ -994,8 +1012,13 @@ void Sua() {
                 case 5: bPr[k] = diem; break;
                 case 6: bFi[k] = diem; break;
             }
-
-            FILE *fOut = fopen(fileSua, "w");
+            int indexSVDongBo = binary_search(ma); 
+            if (indexSVDongBo != -1) {
+                strcpy(tenTam[k], tenSV[indexSVDongBo]); 
+            }
+            char fileXuatChuan[100];
+            sprintf(fileXuatChuan, "%s.txt", dsHocPhan[indexMonCanSua]);
+            FILE *fOut = fopen(fileXuatChuan, "w");
             if (fOut) {
                 fprintf(fOut, "%d\n", slTam);
                 for (i = 0; i < slTam; i++) {
@@ -1003,23 +1026,25 @@ void Sua() {
                             maTam[i], tenTam[i], bL1[i], bL2[i], bP1[i], bP2[i], bPr[i], bFi[i]);
                 }
                 fclose(fOut);
+                if (strcmp(fileSua, "CTDL.txt") == 0) {
+                    remove("CTDL.txt");
+                }
             }
 
-            int indexSV = binary_search(ma);
-            if (indexSV != -1) {
+            if (indexSVDongBo != -1) {
                 switch(chonCot) {
-                    case 1: lab1[indexSV] = diem; break;
-                    case 2: lab2[indexSV] = diem; break;
-                    case 3: pt1[indexSV] = diem; break;
-                    case 4: pt2[indexSV] = diem; break;
-                    case 5: pre[indexSV] = diem; break;
-                    case 6: final[indexSV] = diem; break;
+                    case 1: lab1[indexSVDongBo] = diem; break;
+                    case 2: lab2[indexSVDongBo] = diem; break;
+                    case 3: pt1[indexSVDongBo] = diem; break;
+                    case 4: pt2[indexSVDongBo] = diem; break;
+                    case 5: pre[indexSVDongBo] = diem; break;
+                    case 6: final[indexSVDongBo] = diem; break;
                 }
             }
 
             system("cls");
-            XemDiemMotSV(ma, chonMon, chonCot); 
-            printf(GREEN "[THANH CONG] Da cap nhat va dong bo vao file!\n" RESET);
+            XemDiemMotSV(ma, dsHocPhan[indexMonCanSua], chonCot); 
+            printf(GREEN "[THANH CONG] Da cap nhat va dong bo vao file moi hoc phan!\n" RESET);
             break; 
         }
         printf("\n");
@@ -1304,7 +1329,7 @@ void ThongKeHocVu() {
     }
 
     printf("\n");
-    printCenter(YELLOW "Nhan phim bat ky de in danh sach cac mon..." RESET);
+    printCenter(YELLOW "Nhan phim ENTER de chon HOC PHAN..." RESET);
     getch();
 }
 
