@@ -495,6 +495,20 @@ int binary_search(char *ma) {
     return -1;
 }
 
+void layTenChinh(char hoTen[], char tenChinh[]) {
+    int len = strlen(hoTen);
+    int i = len - 1;
+    while (i >= 0 && hoTen[i] == ' ') i--; 
+    int ketThucTen = i; 
+	while (i >= 0 && hoTen[i] != ' ') i--;
+    int idx = 0;
+    int j;
+    for (j = i + 1; j <= ketThucTen; j++) {
+        tenChinh[idx++] = hoTen[j];
+    }
+    tenChinh[idx] = '\0';
+}
+
 void XemDiemMotSV(char maTruyenVao[], char monSua[], int cotSua) {
     char ma[20];
     int i, j, k, d, cheDoXemDocLap = 0; 
