@@ -811,12 +811,7 @@ void Sua() {
                             if (fscanf(fCheck, "%[^0-9]", tenT) != 1) break;
                             if (fscanf(fCheck, "%f %f %f %f %f %f\n", &l1, &l2, &p1, &p2, &pr, &fi) == 6) {
                                 if (strcmp(maF, ma) == 0) {
-                                    if ((l1 != 1.0 && l1 != -1.0) || 
-                                        (l2 != 1.0 && l2 != -1.0) || 
-                                        (p1 != 1.0 && p1 != -1.0) || 
-                                        (p2 != 1.0 && p2 != -1.0) || 
-                                        (pr != 1.0 && pr != -1.0) || 
-                                        (fi != 1.0 && fi != -1.0)) {
+                                    if (l1 != -1.0 || l2 != -1.0 || p1 != -1.0 || p2 != -1.0 || pr != -1.0 || fi != -1.0) {
                                         daCoItNhatMotDauDiem = 1;
                                     }
                                     break;
