@@ -1308,6 +1308,100 @@ void ThongKeHocVu() {
     getch();
 }
 
+void InBangDiemToanLop() {
+    system("cls");
+    printCenter("\n" GREEN "---------------------------- BANG DIEM TONG HOP CUA LOP --------------------------------" RESET "\n\n");
+    
+    char dsMaSV[100][20];
+    char dsTenSV[100][50];
+    float dsCPA[100];
+    int soMonHocCuaSV[100];
+    int tongSoSV = 0;
+    
+    int i,j,k,m;
+    for (i = 0; i < n; i++) {
+        strcpy(dsMaSV[tongSoSV], maSV[i]);
+        strcpy(dsTenSV[tongSoSV], tenSV[i]);
+        dsCPA[tongSoSV] = 0;
+        soMonHocCuaSV[tongSoSV] = 0;
+        tongSoSV++;
+    }
+
+    for (m = 0; m < soHp; m++) {
+        char fileMon[50];
+        sprintf(fileMon, "%s.txt", dsHocPhan[m]);
+        FILE *fMon = fopen(fileMon, "r");
+        if (!fMon) continue;
+        
+        int slSVInFile;
+        if (fscanf(fMon, "%d\n", &slSVInFile) != 1) {
+            fclose(fMon);
+            continue;
+        }
+        
+        char maF[20], tenTam[100];
+        float l1, l2, p1, p2, pr, fi;
+        for (k = 0; k < slSVInFile; k++) {
+            if (fscanf(fMon, "%s ", maF) != 1) break;
+            if (fscanf(fMon, "%[^0-9]", tenTam) != 1) break;
+            if (fscanf(fMon, "%f %f %f %f %f %f\n", &l1, &l2, &p1, &p2, &pr, &fi) == 6) {
+                
+                if (l1 != -1 && l2 != -1 && p1 != -1 && p2 != -1 && pr != -1 && fi != -1) {
+                    float tbMon = (l1 + l2 + p1 + p2 + pr + fi) / 6.0;
+                    int s;
+                    for (s = 0; s < tongSoSV; s++) {
+                        if (strcmp(dsMaSV[s], maF) == 0) {
+                            dsCPA[s] += tbMon;
+                            soMonHocCuaSV[s]++;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        fclose(fMon);
+    }
+    
+    for (i = 0; i < tongSoSV; i++) {
+        if (soMonHocCuaSV[i] > 0) {
+            dsCPA[i] = dsCPA[i] / soMonHocCuaSV[i];
+        } else {
+            dsCPA[i] = 0.0;
+        }
+    }
+    for (i = 0; i < tongSoSV - 1; i++) {
+        for (j = i + 1; j < tongSoSV; j++) {
+            if (dsCPA[i] < dsCPA[j]) {
+                char tempMa[20]; strcpy(tempMa, dsMaSV[i]); strcpy(dsMaSV[i], dsMaSV[j]); strcpy(dsMaSV[j], tempMa);
+                char tempTen[50]; strcpy(tempTen, dsTenSV[i]); strcpy(dsTenSV[i], dsTenSV[j]); strcpy(dsTenSV[j], tempTen);
+                float tempCPA = dsCPA[i]; dsCPA[i] = dsCPA[j]; dsCPA[j] = tempCPA;
+                int tempMon = soMonHocCuaSV[i]; soMonHocCuaSV[i] = soMonHocCuaSV[j]; soMonHocCuaSV[j] = tempMon;
+            }
+        }
+    }
+    
+    printf("+------+-----------+---------------------+-------------------+------------+\n");
+    printf("| HANG |   MSSV    |       Ho Va Ten     |   DIEM TICH LUY   | SO MON HOC |\n");
+    printf("+------+-----------+---------------------+-------------------+------------+\n");
+    
+    for (i = 0; i < tongSoSV; i++) {
+        char xlTichLuy = ' ';
+        if (soMonHocCuaSV[i] > 0) xlTichLuy = xepLoai(dsCPA[i]);
+        
+        if (i < 3 && dsCPA[i] >= 8.0) {
+            printf("|  %-3d | %-9s | %-19s |     " GREEN "%-5.2f (%c)" RESET "     |     %-6d |\n", i + 1, dsMaSV[i], dsTenSV[i], dsCPA[i], xlTichLuy, soMonHocCuaSV[i]);
+        } else if (dsCPA[i] < 4.0 && soMonHocCuaSV[i] > 0) {
+            printf("|  %-3d | %-9s | %-19s |     " RED "%-5.2f (%c)" RESET "     |     %-6d |\n", i + 1, dsMaSV[i], dsTenSV[i], dsCPA[i], xlTichLuy, soMonHocCuaSV[i]);
+        } else {
+            printf("|  %-3d | %-9s | %-19s |     %-5.2f (%c)     |     %-6d |\n", i + 1, dsMaSV[i], dsTenSV[i], dsCPA[i], xlTichLuy, soMonHocCuaSV[i]);
+        }
+    }
+    printf("+------+-----------+---------------------+-------------------+------------+\n");
+    
+    printf("\n" YELLOW "Nhan phim bat ky de quay lai bang diem chi tiet..." RESET);
+    getch();
+}
+
 void In() {
     int ch;
     ThongKeHocVu();
