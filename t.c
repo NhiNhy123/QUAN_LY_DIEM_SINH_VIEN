@@ -434,7 +434,7 @@ int NhapDiemMotSV(int k) {
         printf("   ==> " BOLD_CYAN "DIEM TRUNG BINH : %.1f" RESET "\n", tinhTB(k));
         printf(YELLOW "\nDa hoan thanh nhap full diem cho sinh vien nay!" RESET);
     } else {
-        printf(YELLOW "\nTam thoi dung nhap diem cho sinh viên nay." RESET);
+        printf(YELLOW "\nTam thoi dung nhap diem cho sinh viÃªn nay." RESET);
     }
     
     Sleep(1000);
@@ -921,10 +921,10 @@ void InbangSapXep() {
     int demA = 0, demB = 0, demC = 0, demD = 0, demF = 0;
     int i, j;
     system("cls");
-    printf("\n" BOLD_CYAN "------------------------------------ BANG DIEM MON %s -------------------------------------" RESET "\n\n", tenHp);
-    printf(CYAN "+-----+------------+---------------------+------+------+------+------+-------+-------+-------+\n" RESET);
-    printf("| STT |  Ma so SV  |      Ho va ten      | Lab1 | Lab2 | PT1  | PT2  |  Pre  | Final |  TB   |\n");
-    printf(CYAN "+-----+------------+---------------------+------+------+------+------+-------+-------+-------+\n" RESET);
+    printf("\n" BOLD_CYAN "------------------------------------------ BANG DIEM MON %s -------------------------------------------" RESET "\n\n", tenHp);
+    printf(CYAN "+-----+------------+---------------------+------+------+------+------+-------+-------+-------+----------+\n" RESET);
+    printf("| STT |  Ma so SV  |       Ho va ten     | Lab1 | Lab2 | PT1  | PT2  |  Pre  | Final |  TB   | XEP LOAI |\n");
+    printf(CYAN "+-----+------------+---------------------+------+------+------+------+-------+-------+-------+----------+\n" RESET);
     for (i = 0; i < n; i++) {
         float diem[6] = {lab1[i], lab2[i], pt1[i], pt2[i], pre[i], final[i]};
         int daydu = 1;
@@ -946,18 +946,18 @@ void InbangSapXep() {
         }
         if (daydu) {
             float tb = tinhTB(i);
-            printf("%-5.1f |\n", tb); 
-            char xl = xepLoai(tb);
+            char xl = xepLoai(tb);   
+            printf("%-5.1f |    %-5c |\n", tb, xl);           
             if (xl == 'A') demA++;
             else if (xl == 'B') demB++;
             else if (xl == 'C') demC++;
             else if (xl == 'D') demD++;
             else demF++;
         } else {
-            printf("%-5s |\n", "N/A");
+            printf("%-5s |    %-5s |\n", "N/A", "N/A");
         }
     }
-    printf(CYAN "+-----+------------+---------------------+------+------+------+------+-------+-------+-------+\n" RESET);
+    printf(CYAN "+-----+------------+---------------------+------+------+------+------+-------+-------+-------+----------+\n" RESET);
 }
 
 float temp_dtb[mx];
