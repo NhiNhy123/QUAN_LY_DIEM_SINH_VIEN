@@ -1039,49 +1039,6 @@ void Sua() {
     }
 }
 
-void InbangSapXep() {
-    int demA = 0, demB = 0, demC = 0, demD = 0, demF = 0;
-    int i, j;
-    system("cls");
-    printf("\n" BOLD_CYAN "------------------------------------------ BANG DIEM MON %s -------------------------------------------" RESET "\n\n", tenHp);
-    printf(CYAN "+-----+------------+---------------------+------+------+------+------+-------+-------+-------+----------+\n" RESET);
-    printf("| STT |  Ma so SV  |       Ho va ten     | Lab1 | Lab2 | PT1  | PT2  |  Pre  | Final |  TB   | XEP LOAI |\n");
-    printf(CYAN "+-----+------------+---------------------+------+------+------+------+-------+-------+-------+----------+\n" RESET);
-    for (i = 0; i < n; i++) {
-        float diem[6] = {lab1[i], lab2[i], pt1[i], pt2[i], pre[i], final[i]};
-        int daydu = 1;
-        for (j = 0; j < 6; j++) {
-            if (diem[j] == -1) {
-                daydu = 0;
-                break;
-            }
-        }
-        printf("| %-3d | %-10s | %-19.19s | ", i + 1, maSV[i], tenSV[i]);
-        for (j = 0; j < 6; j++) {
-            if (diem[j] == -1) {
-                if (j >= 4) printf("%-5s | ", "N/A"); 
-                else printf("%-4s | ", "N/A");      
-            } else {
-                if (j >= 4) printf("%-5.1f | ", diem[j]);
-                else printf("%-4.1f | ", diem[j]);
-            }
-        }
-        if (daydu) {
-            float tb = tinhTB(i);
-            char xl = xepLoai(tb);   
-            printf("%-5.1f |    %-5c |\n", tb, xl);           
-            if (xl == 'A') demA++;
-            else if (xl == 'B') demB++;
-            else if (xl == 'C') demC++;
-            else if (xl == 'D') demD++;
-            else demF++;
-        } else {
-            printf("%-5s |    %-5s |\n", "N/A", "N/A");
-        }
-    }
-    printf(CYAN "+-----+------------+---------------------+------+------+------+------+-------+-------+-------+----------+\n" RESET);
-}
-
 float temp_dtb[mx];
 
 void swap1 (float *a, float *b) {
