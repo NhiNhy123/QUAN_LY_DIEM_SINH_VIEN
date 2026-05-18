@@ -773,73 +773,140 @@ int ChuaNhapDiem(int i) {
 }
 
 void Sua() {
+    char nhapTimKiem[100]; 
+    char tuKhoaUp[100];
     char ma[20];
     char chonMon[20];
     int chonCot, tiep;
-    char box[150];
     int i, j, k, d;
+    int indexGoc[100];     
+    int soLuongTimThay;
+    int chon; 
+
     while (1) {
-        system("cls");
-        printf(YELLOW);
-        printCenter("------- CHINH SUA DIEM SINH VIEN -------\n");
-        printf(RESET);
-        DanhSachSV(0); 
-        printCenter(BOLD_CYAN "+------------------------------------------+" RESET);
-        printCenter(BOLD_CYAN "|           CHINH SUA DIEM TONG HOP        |" RESET);
-        printCenter(BOLD_CYAN "+------------------------------------------+" RESET);      
         while (1) {
+            system("cls");
+            printCenter(BOLD_CYAN "+------------------------------------------+" RESET);
+            printCenter(BOLD_CYAN "|          CHINH SUA DIEM SINH VIEN        |" RESET);
+            printCenter(BOLD_CYAN "+------------------------------------------+" RESET);      
             printf("\n");
             for(d = 0; d < 40; d++) printf(" ");
-            printf(YELLOW "Nhap MSSV can sua (0 de thoat): " RESET);
-            scanf("%s", ma);
-            if (strcmp(ma, "0") == 0) return;
-            k = binary_search(ma);
-            if (k == -1) { xoaDongVuaNhap(); continue; }
-            int daCoItNhatMotDauDiem = 0;
+            printf(YELLOW "Nhap MSSV hoac TEN SINH VIEN (0 de huy): " RESET);
+            fflush(stdin);
+            fgets(nhapTimKiem, sizeof(nhapTimKiem), stdin);
+            nhapTimKiem[strcspn(nhapTimKiem, "\n")] = '\0';
+
+            if (strcmp(nhapTimKiem, "0") == 0) return;
+            if (strlen(nhapTimKiem) == 0) continue;
+			k = binary_search(nhapTimKiem); 
+            if (k != -1) {
+                strcpy(ma, maSV[k]); 
+                break; 
+            }
+			strcpy(tuKhoaUp, nhapTimKiem);
+            strupr(tuKhoaUp);
+
+            soLuongTimThay = 0;
+            for (i = 0; i < n; i++) { 
+                char tChinh[50];
+                layTenChinh(tenSV[i], tChinh); 
+                strupr(tChinh);
+
+                if (strstr(tChinh, tuKhoaUp) != NULL) {
+                    indexGoc[soLuongTimThay] = i;
+                    soLuongTimThay++;
+                }
+            }
+
+            if (soLuongTimThay == 0) {
+                printf("\n");
+                printCenter(RED "(!) Khong tim thay sinh vien nao phu hop. Vui long nhap lai!\n" RESET);
+                Sleep(1200);
+                continue;
+            }
+            if (soLuongTimThay == 1) {
+                k = indexGoc[0];
+                strcpy(ma, maSV[k]);
+                break;
+            }
+            printf("\n");
+            char tieuDe[100];
+            sprintf(tieuDe, GREEN "Tim thay %d sinh vien phu hop:" RESET, soLuongTimThay);
+            printCenter(tieuDe);
             
-            for (i = 0; i < soHp; i++) {
-                char fileCheck[50];
-                sprintf(fileCheck, "%s.txt", dsHocPhan[i]);
-                FILE *fCheck = fopen(fileCheck, "r");
-                if (fCheck) {
-                    int slCheck;
-                    if (fscanf(fCheck, "%d\n", &slCheck) == 1) {
-                        char maF[20], tenT[100];
-                        float l1, l2, p1, p2, pr, fi;
-                        for (j = 0; j < slCheck; j++) {
-                            if (fscanf(fCheck, "%s ", maF) != 1) break;
-                            if (fscanf(fCheck, "%[^0-9]", tenT) != 1) break;
-                            if (fscanf(fCheck, "%f %f %f %f %f %f\n", &l1, &l2, &p1, &p2, &pr, &fi) == 6) {
-                                if (strcmp(maF, ma) == 0) {
-                                    if (l1 != -1.0 || l2 != -1.0 || p1 != -1.0 || p2 != -1.0 || pr != -1.0 || fi != -1.0) {
-                                        daCoItNhatMotDauDiem = 1;
-                                    }
-                                    break;
+            printCenter(BOLD_CYAN "+-----+---------------+-------------------------------------+" RESET);
+            printCenter(BOLD_CYAN "| STT |     MSSV      |              HO VA TEN              |" RESET);
+            printCenter(BOLD_CYAN "+-----+---------------+-------------------------------------+" RESET);
+            for (i = 0; i < soLuongTimThay; i++) {
+                char row[150];
+                sprintf(row, "| %-3d | %-13s | %-35s |", i + 1, maSV[indexGoc[i]], tenSV[indexGoc[i]]);
+                printCenter(row);
+            }
+            printCenter(BOLD_CYAN "+-----+---------------+-------------------------------------+" RESET);
+            int hopLe = 0;
+            while (1) {
+                printf("\n");
+                for(d = 0; d < 22; d++) printf(" ");
+                printf(CYAN "Nhap STT sinh vien muon sua (0 de nhap lai): " RESET);
+                if (scanf("%d", &chon) != 1) {
+                    while (getchar() != '\n'); 
+                    xoaDongVuaNhap();
+                    continue;
+                }
+                
+                if (chon == 0) break; 
+                
+                if (chon >= 1 && chon <= soLuongTimThay) {
+                    k = indexGoc[chon - 1]; 
+                    strcpy(ma, maSV[k]);   
+                    hopLe = 1;
+                    break;
+                }
+                xoaDongVuaNhap();
+            }
+            if (hopLe) break; 
+        }
+        int daCoItNhatMotDauDiem = 0;
+        for (i = 0; i < soHp; i++) {
+            char fileCheck[50];
+            sprintf(fileCheck, "%s.txt", dsHocPhan[i]);
+            FILE *fCheck = fopen(fileCheck, "r");
+            if (fCheck) {
+                int slCheck;
+                if (fscanf(fCheck, "%d\n", &slCheck) == 1) {
+                    char maF[20], tenT[100];
+                    float l1, l2, p1, p2, pr, fi;
+                    for (j = 0; j < slCheck; j++) {
+                        if (fscanf(fCheck, "%s ", maF) != 1) break;
+                        if (fscanf(fCheck, "%[^-0-9]", tenT) != 1) break;
+                        if (fscanf(fCheck, "%f %f %f %f %f %f\n", &l1, &l2, &p1, &p2, &pr, &fi) == 6) {
+                            if (strcmp(maF, ma) == 0) {
+                                if (l1 != -1.0 || l2 != -1.0 || p1 != -1.0 || p2 != -1.0 || pr != -1.0 || fi != -1.0) {
+                                    daCoItNhatMotDauDiem = 1;
                                 }
+                                break;
                             }
                         }
                     }
-                    fclose(fCheck);
                 }
-                if (daCoItNhatMotDauDiem) break; 
+                fclose(fCheck);
             }
-            if (!daCoItNhatMotDauDiem) {
-    			xoaDongVuaNhap();
-    			printCenter(RED "   (!) Sinh vien nay chua duoc nhap bat ky dau diem nao. Khong the sua!\n" RESET);
-    			fflush(stdout); 
-    			Sleep(1000); 
-    			xoaDongVuaNhap();
-    			xoaDongVuaNhap(); 
-    			continue; 
-            }
-            break; 
+            if (daCoItNhatMotDauDiem) break; 
+        }
+        if (!daCoItNhatMotDauDiem) {
+            system("cls");
+            printf("\n\n\n");
+            printCenter(RED "(!) Sinh vien nay chua duoc nhap bat ky diem nao. Khong the sua!" RESET);
+            fflush(stdout); 
+            Sleep(1500); 
+            continue;
         }
         while (1) {
             system("cls");
             XemDiemMotSV(ma, "", 0);
             int indexMonCanSua = -1;
             while (1) {
-                printf(YELLOW "Nhap TEN MON muon sua (Vi du: CTDL, PPT, TRR): " RESET);
+                printf(YELLOW "Nhap TEN HOC PHAN muon sua: " RESET);
                 scanf("%s", chonMon);
                 strupr(chonMon);
                 for (i = 0; i < soHp; i++) {
@@ -858,14 +925,16 @@ void Sua() {
 
             FILE *fIn = fopen(fileSua, "r");
             if (fIn) {
-                fscanf(fIn, "%d\n", &slTam);
-                for (i = 0; i < slTam; i++) {
-                    fscanf(fIn, "%s ", maTam[i]);
-                    fscanf(fIn, "%[^0-9]", tenTam[i]);
-                    fscanf(fIn, "%f %f %f %f %f %f\n", &bL1[i], &bL2[i], &bP1[i], &bP2[i], &bPr[i], &bFi[i]);
-                    if (strcmp(maTam[i], ma) == 0) {
-                        timThaySVTrongFile = 1;
-                        k = i; 
+                if (fscanf(fIn, "%d\n", &slTam) == 1) {
+                    for (i = 0; i < slTam; i++) {
+                        if (fscanf(fIn, "%s ", maTam[i]) != 1) break;
+                        if (fscanf(fIn, "%[^-0-9]", tenTam[i]) != 1) break;
+                        if (fscanf(fIn, "%f %f %f %f %f %f\n", &bL1[i], &bL2[i], &bP1[i], &bP2[i], &bPr[i], &bFi[i]) == 6) {
+                            if (strcmp(maTam[i], ma) == 0) {
+                                timThaySVTrongFile = 1;
+                                k = i; 
+                            }
+                        }
                     }
                 }
                 fclose(fIn);
@@ -897,19 +966,21 @@ void Sua() {
                 else if (chonCot == 4) diemHienTai = bP2[k];
                 else if (chonCot == 5) diemHienTai = bPr[k];
                 else if (chonCot == 6) diemHienTai = bFi[k];
-                if (diemHienTai == 1.0 || diemHienTai == -1.0) {
+                
+                if (diemHienTai == -1.0) {
                     xoaDongVuaNhap(); 
                     printf(RED "   (!) Cot nay chua co diem (N/A), khong the sua! Vui long chon cot khac.\n" RESET);
                     Sleep(1000);
                     xoaDongVuaNhap(); 
                     continue; 
                 }
-
                 break; 
             }
 
             printf("\n");
-            float diem = NhapMotCotDiem("diem moi");
+            fflush(stdin); 
+            
+            float diem = NhapMotCotDiem("diem moi", diemHienTai); 
             if (diem == -2.0) {
                 printf(RED "\n[THONG BAO] Da huy thao tac sua!\n" RESET);
                 Sleep(1200); break; 
@@ -934,36 +1005,36 @@ void Sua() {
                 fclose(fOut);
             }
 
-            if (strcmp(chonMon, tenHp) == 0) {
-                int indexSV = binary_search(ma);
-                if (indexSV != -1) {
-                    switch(chonCot) {
-                        case 1: lab1[indexSV] = diem; break;
-                        case 2: lab2[indexSV] = diem; break;
-                        case 3: pt1[indexSV] = diem; break;
-                        case 4: pt2[indexSV] = diem; break;
-                        case 5: pre[indexSV] = diem; break;
-                        case 6: final[indexSV] = diem; break;
-                    }
+            int indexSV = binary_search(ma);
+            if (indexSV != -1) {
+                switch(chonCot) {
+                    case 1: lab1[indexSV] = diem; break;
+                    case 2: lab2[indexSV] = diem; break;
+                    case 3: pt1[indexSV] = diem; break;
+                    case 4: pt2[indexSV] = diem; break;
+                    case 5: pre[indexSV] = diem; break;
+                    case 6: final[indexSV] = diem; break;
                 }
             }
 
             system("cls");
-            printf("\n" GREEN "--- KET QUA SAU KHI SUA (DIEM DOI MAU XANH) ---" RESET "\n");
             XemDiemMotSV(ma, chonMon, chonCot); 
             printf(GREEN "[THANH CONG] Da cap nhat va dong bo vao file!\n" RESET);
             break; 
         }
-
         printf("\n");
-        sprintf(box, "%s+------------------------------------------+%s", BOLD_CYAN, RESET); printCenter(box);
-        sprintf(box, "%s|      [1] Tiep tuc sua sinh vien khac     |%s", BOLD_CYAN, RESET); printCenter(box);
-        sprintf(box, "%s|      [0] Quay lai Menu chinh             |%s", BOLD_CYAN, RESET); printCenter(box);
-        sprintf(box, "%s+------------------------------------------+%s", BOLD_CYAN, RESET); printCenter(box);
+        char dongHuongDan[150];
+        sprintf(dongHuongDan, "%sBam [1] de tiep tuc sua SV khac | Bam phim bat ky de ve Menu chinh%s", BOLD_CYAN, RESET);
+        printCenter(dongHuongDan);
+        
         printf("\n");
         for(d = 0; d < 48; d++) printf(" "); 
         printf(GREEN "LUA CHON: " RESET);
-        scanf("%d", &tiep);
+        
+        if (scanf("%d", &tiep) != 1) {
+            while (getchar() != '\n');
+            tiep = 0; 
+        }
         if (tiep != 1) break;
     }
 }
