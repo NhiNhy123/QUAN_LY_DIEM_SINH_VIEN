@@ -537,54 +537,63 @@ void displayMainInterface(const char* lecturerName) {
    
 }
 
+void loadingEffect(int x, int y) {
+    gotoxy(x, y);
+    printf(CYAN "Dang xu ly" RESET);
+    int i;
+    for (i = 0; i < 4; i++) {
+        printf(CYAN "." RESET);
+        fflush(stdout);
+        Sleep(250);
+    }
+}
+
 int dangNhapGiangVien() {
-
     char tk[30], mk[30];
-
-    int i, chon;
+    int i;
 
     while (1) {
+        system("cls");
         lecturerLoginBox();
-
-        gotoxy(57,12);
+        gotoxy(57, 12);
+        fflush(stdin);
         scanf("%s", tk);
 
-        gotoxy(57,16);
+        if (strcmp(tk, "0") == 0) {
+            return 0;
+        }
+
+        gotoxy(57, 16);
+        fflush(stdin);
         scanf("%s", mk);
-
-        for(i = 0; i < soGV; i++) {
-
-            if(strcmp(tk, taiKhoanGV[i]) == 0 &&
-               strcmp(mk, matKhauGV[i]) == 0) {
-
+        
+        loadingEffect(52, 21);
+        
+        for (i = 0; i < soGV; i++) {
+            if (strcmp(tk, taiKhoanGV[i]) == 0 && strcmp(mk, matKhauGV[i]) == 0) {
                 vaiTro = 1;
-
-                system("cls");
-
-                printCenter(GREEN "DANG NHAP THANH CONG!" RESET);
-
+                
+                gotoxy(42, 21); 
+                printf("                                                 "); 
+                
+                gotoxy(48, 21); 
+                printf(GREEN "[ V ] DANG NHAP THANH CONG!" RESET);
+                
+                fflush(stdout);
                 Sleep(1200);
-
                 return 1;
             }
         }
-                
-        printf("\n");  
-        system("cls");
+        gotoxy(42, 21); 
+        printf("                                                 "); 
 
-        printCenter(RED "TEN DANG NHAP HOAC MAT KHAU KHONG DUNG!" RESET);
-
-        printf("\n");
-
-        printCenter("1. Dang nhap lai");
-        printCenter("0. Thoat");
-        printf("\n");
-        printf("Nhap lua chon: ");
-        scanf("%d", &chon);
-        if(chon == 0) {
-            return 0;
-            }
-            continue;
+        gotoxy(42, 21);
+        printf(RED "[ X ] TAI KHOAN HOAC MAT KHAU KHONG CHINH XAC!" RESET);
+        
+        gotoxy(45, 22);
+        printf(YELLOW "Nhan phim bat ky de thuc hien nhap lai..." RESET);
+        
+        getch(); 
     }
     return 0;
 }
