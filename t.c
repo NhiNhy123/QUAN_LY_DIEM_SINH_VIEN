@@ -193,107 +193,57 @@ void chooseRoleBox() {
     resizeConsole();
     hideCursor();
 
-    gotoxy(12,3);
-    printf(CYAN"+---------------------------------------------------------------------------------------------+"RESET);
+    gotoxy(12, 3);
+    printf(CYAN "+---------------------------------------------------------------------------------------------+" RESET);
 
-    gotoxy(12,4);
-    printf(CYAN"¦                                                                                             ¦"RESET);
+    gotoxy(12, 4);  printf(CYAN "|" RESET);
+    gotoxy(46, 4);  printf(RED "HE THONG QUAN LY DIEM SINH VIEN" RESET);
+    gotoxy(106, 4); printf(CYAN "|" RESET);
+    gotoxy(12, 5);
+    printf(CYAN "+---------------------------------------------------------------------------------------------+" RESET);
 
-    gotoxy(46,4);
-    printf(RED"HE THONG QUAN LY DIEM SINH VIEN"RESET);
+    int y;
+    for (y = 6; y <= 22; y++) {
+        gotoxy(12, y);  printf(CYAN "|" RESET);
+        gotoxy(106, y); printf(CYAN "|" RESET);
+    }
+    gotoxy(12, 23);
+    printf(CYAN "+---------------------------------------------------------------------------------------------+" RESET);
+    gotoxy(35, 8);
+    printf(YELLOW "+----------------------------------------------+" RESET);
+    
+    gotoxy(35, 9);
+    printf(GREEN  "|                CHON DOI TUONG                |" RESET);
+    
+    gotoxy(35, 10);
+    printf(YELLOW "+----------------------------------------------+" RESET); 
 
-    gotoxy(12,5);
-    printf("+---------------------------------------------------------------------------------------------+"RESET);
+    gotoxy(35, 11);
+    printf(YELLOW "|                                              |" RESET);
+    
+    gotoxy(35, 12);
+    printf(YELLOW "|        1. DANG NHAP GIANG VIEN               |" RESET);
+    
+    gotoxy(35, 13);
+    printf(YELLOW "|                                              |" RESET);
+    
+    gotoxy(35, 14);
+    printf(YELLOW "|        2. DANG NHAP SINH VIEN                |" RESET);
+    
+    gotoxy(35, 15);
+    printf(YELLOW "|                                              |" RESET);
+    
+    gotoxy(35, 16);
+    printf(YELLOW "|        0. THOAT                              |" RESET);
+    
+    gotoxy(35, 17);
+    printf(YELLOW "|                                              |" RESET);
+    
+    gotoxy(35, 18);
+    printf(YELLOW "+----------------------------------------------+" RESET);
 
-    gotoxy(12,6);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,7);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,8);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,9);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,10);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,11);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,12);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,13);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,14);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,15);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,16);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,17);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,18);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,19);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,20);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,21);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,22);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,23);
-    printf(CYAN"+---------------------------------------------------------------------------------------------+"RESET);
-
-    gotoxy(35,8);
-    printf(YELLOW"+----------------------------------------------+"RESET);
-
-    gotoxy(35,9);
-    printf(GREEN"¦               CHON DOI TUONG                 ¦"RESET);
-
-    gotoxy(35,10);
-    printf(YELLOW"+----------------------------------------------¦"RESET);
-
-    gotoxy(35,11);
-    printf(YELLOW"¦                                              ¦"RESET);
-
-    gotoxy(35,12);
-    printf(YELLOW"¦        1. DANG NHAP GIANG VIEN               ¦"RESET);
-
-    gotoxy(35,13);
-    printf(YELLOW"¦                                              ¦"RESET);
-
-    gotoxy(35,14);
-    printf(YELLOW"¦        2. DANG NHAP SINH VIEN                ¦"RESET);
-
-    gotoxy(35,15);
-    printf(YELLOW"¦                                              ¦"RESET);
-
-    gotoxy(35,16);
-    printf(YELLOW"¦        0. THOAT                              ¦"RESET);
-
-    gotoxy(35,17);
-    printf(YELLOW"¦                                              ¦"RESET);
-
-    gotoxy(35,18);
-    printf(YELLOW"+----------------------------------------------+"RESET);
-
-    gotoxy(35,20);
-    printf(GREEN"Nhap lua chon cua ban: "RESET);
+    gotoxy(35, 20);
+    printf(GREEN "Nhap lua chon cua ban: " RESET);
 
     showCursor();
 }
@@ -306,207 +256,104 @@ void lecturerLoginBox() {
     resizeConsole();
     hideCursor();
 
-    gotoxy(12,3);
-    printf(CYAN"+---------------------------------------------------------------------------------------------+"RESET);
+    gotoxy(12, 3);
+    printf(CYAN "+---------------------------------------------------------------------------------------------+" RESET);
+    int y;
+    for (y = 4; y <= 22; y++) {
+        gotoxy(12, y);  printf(CYAN "|" RESET);
+        gotoxy(106, y); printf(CYAN "|" RESET);
+    }
+    gotoxy(46, 4);
+    printf(RED "HE THONG QUAN LY DIEM SINH VIEN" RESET);
+    gotoxy(12, 5);
+    printf(CYAN "+---------------------------------------------------------------------------------------------+" RESET);
+    gotoxy(12, 23);
+    printf(CYAN "+---------------------------------------------------------------------------------------------+" RESET);
 
-    gotoxy(12,4);
-    printf(CYAN"¦                                                                                             ¦"RESET);
+    gotoxy(30, 8);
+    printf(MAGENTA "+------------------------------------------------------------+" RESET);
+    gotoxy(30, 9);
+    printf(MAGENTA "|                 DANG NHAP TAI KHOAN GIANG VIEN             |" RESET);
+    gotoxy(30, 10);
+    printf(MAGENTA "+------------------------------------------------------------+" RESET);
 
-    gotoxy(46,4);
-    printf(RED"HE THONG QUAN LY DIEM SINH VIEN"RESET);
+    for (y = 11; y <= 18; y++) {
+        gotoxy(30, y);
+        printf(MAGENTA "|                                                            |" RESET);
+    }
 
-    gotoxy(12,5);
-    printf("+---------------------------------------------------------------------------------------------+"RESET);
+    gotoxy(32, 12);
+    printf(MAGENTA "TEN DANG NHAP" RESET);
+    gotoxy(50, 11);
+    printf(MAGENTA "     +---------------------------+" RESET);
+    gotoxy(50, 12);
+    printf(MAGENTA "     |                           |" RESET);
+    gotoxy(50, 13);
+    printf(MAGENTA "     +---------------------------+" RESET);
 
-    gotoxy(12,6);
-    printf(CYAN"¦                                                                                             ¦"RESET);
+    gotoxy(32, 16);
+    printf(MAGENTA "MAT KHAU" RESET);
+    gotoxy(50, 15);
+    printf(MAGENTA "     +---------------------------+" RESET);
+    gotoxy(50, 16);
+    printf(MAGENTA "     |                           |" RESET);
+    gotoxy(50, 17);
+    printf(MAGENTA "     +---------------------------+" RESET);
 
-    gotoxy(12,7);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,8);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,9);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,10);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,11);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,12);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,13);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,14);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,15);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,16);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,17);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,18);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,19);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,20);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,21);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,22);
-    printf(CYAN"¦                                                                                             ¦"RESET);
-
-    gotoxy(12,23);
-    printf(CYAN"+---------------------------------------------------------------------------------------------+"RESET);
-
-    gotoxy(30,8);
-    printf(MAGENTA"+------------------------------------------------------------+"RESET);
-
-    gotoxy(30,9);
-    printf(MAGENTA"¦                 DANG NHAP TAI KHOAN GIANG VIEN             ¦"RESET);
-
-    gotoxy(30,10);
-    printf(MAGENTA"+------------------------------------------------------------+"RESET);
-
-    gotoxy(30,11);
-    printf(MAGENTA"¦                                                            ¦"RESET);
-
-    gotoxy(30,12);
-    printf(MAGENTA"¦                                                            ¦"RESET);
-    
-    gotoxy(30,13);
-    printf(MAGENTA"¦                                                            ¦"RESET);
-
-    gotoxy(30,14);
-    printf(MAGENTA"¦                                                            ¦"RESET);
-
-    gotoxy(30,15);
-    printf(MAGENTA"¦                                                            ¦"RESET);
-
-    gotoxy(30,16);
-    printf(MAGENTA"¦                                                            ¦"RESET);
-
-    gotoxy(30,17);
-    printf(MAGENTA"¦                                                            ¦"RESET);
-
-    gotoxy(30,18);
-    printf(MAGENTA"¦                                                            ¦"RESET);
-
-    gotoxy(30,19);
-    printf(MAGENTA"¦                                                            ¦"RESET);
-
-    gotoxy(30,12);
-    printf(MAGENTA"¦     TEN DANG NHAP                                          ¦"RESET);
-
-    gotoxy(50,11);
-    printf(MAGENTA"     +---------------------------+    "RESET);
-
-    gotoxy(50,12);
-    printf(MAGENTA"     ¦                           ¦  "RESET);
-
-    gotoxy(50,13);
-    printf(MAGENTA"     +---------------------------+  "RESET);
-
-    gotoxy(30,16);
-    printf(MAGENTA"¦     MAT KHAU                                               ¦ "RESET);
-
-    gotoxy(50,15);
-    printf(MAGENTA"     +---------------------------+    "RESET);
-
-    gotoxy(50,16);
-    printf(MAGENTA"     ¦                           ¦  "RESET);
-
-    gotoxy(50,17);
-    printf(MAGENTA"     +---------------------------+  "RESET);
-
-    gotoxy(30,19);
-    printf(MAGENTA"+------------------------------------------------------------+"RESET);
-
+    gotoxy(30, 19);
+    printf(MAGENTA "+------------------------------------------------------------+" RESET);
 }
 
-
-// ========================== DANG NHAP SINH VIEN ==========================
 void studentLoginBox() {
     system("cls");
     SetConsoleOutputCP(CP_UTF8);
     resizeConsole();
     hideCursor();
-    char tk[30], mk[30];
 
-    // Tiêu d?
-    gotoxy(15,1);
-    printf(CYAN"+--------------------------------------------------------------------------------------------------------------------+"RESET);
+    gotoxy(12, 3);
+    printf(CYAN "+---------------------------------------------------------------------------------------------+" RESET);
+    
+    int y;
+    for (y = 4; y <= 22; y++) {
+        gotoxy(12, y);  printf(CYAN "|" RESET);
+        gotoxy(106, y); printf(CYAN "|" RESET);
+    }
+    
+    gotoxy(46, 4);
+    printf(RED "HE THONG QUAN LY DIEM SINH VIEN" RESET);
+    
+    gotoxy(12, 5);
+    printf(CYAN "+---------------------------------------------------------------------------------------------+" RESET);
+    
+    gotoxy(12, 23);
+    printf(CYAN "+---------------------------------------------------------------------------------------------+" RESET);
 
-    gotoxy(17,2);
-    printf(RED"     ¦                                   H? TH?NG QU?N LÝ ÐI?M SINH VIÊN                                                   ¦"RESET);
+    gotoxy(30, 8);
+    printf(GREEN "+------------------------------------------------------------+" RESET);
+    gotoxy(30, 9);
+    printf(GREEN "|                    DANG NHAP TAI KHOAN SINH VIEN           |" RESET);
+    gotoxy(30, 10);
+    printf(GREEN "+------------------------------------------------------------+" RESET);
 
-    gotoxy(15,3);
-    printf(CYAN"+--------------------------------------------------------------------------------------------------------------------+"RESET);
+    for (y = 11; y <= 18; y++) {
+        gotoxy(30, y);
+        printf(GREEN "|                                                            |" RESET);
+    }
 
-    // H?p dang nh?p sinh viên
-    gotoxy(70,10);
-    printf(GREEN"+------------------------------------------+"RESET);
+    gotoxy(32, 12);
+    printf(GREEN "MA SINH VIEN" RESET);
+    gotoxy(50, 11); printf(GREEN "     +---------------------------+" RESET);
+    gotoxy(50, 12); printf(GREEN "     |                           |" RESET);
+    gotoxy(50, 13); printf(GREEN "     +---------------------------+" RESET);
 
-    gotoxy(70,11);
-    printf(GREEN"¦      DANG NHAP TAI KHOAN SINH VIEN       ¦"RESET);
+    gotoxy(32, 16);
+    printf(GREEN "MAT KHAU" RESET);
+    gotoxy(50, 15); printf(GREEN "     +---------------------------+" RESET);
+    gotoxy(50, 16); printf(GREEN "     |                           |" RESET);
+    gotoxy(50, 17); printf(GREEN "     +---------------------------+" RESET);
 
-    gotoxy(70,12);
-    printf(GREEN"+------------------------------------------¦"RESET);
-
-    gotoxy(70,13);
-    printf(GREEN"¦                                          ¦"RESET);
-
-    gotoxy(70,14);
-    printf(GREEN"¦   ?? MA SINH VIEN :                     ¦"RESET);
-
-    gotoxy(70,15);
-    printf(GREEN"¦   +----------------------------------+  ¦"RESET);
-
-    gotoxy(70,16);
-    printf(GREEN"¦   ¦                                  ¦  ¦"RESET);
-
-    gotoxy(70,17);
-    printf(GREEN"¦   +----------------------------------+  ¦"RESET);
-
-    gotoxy(70,18);
-    printf(GREEN"¦                                          ¦"RESET);
-
-    gotoxy(70,19);
-    printf(GREEN"¦   ?? MAT KHAU :                         ¦"RESET);
-
-    gotoxy(70,20);
-    printf(GREEN"¦   +----------------------------------+  ¦"RESET);
-
-    gotoxy(70,21);
-    printf(GREEN"¦   ¦                                  ¦  ¦"RESET);
-
-    gotoxy(70,22);
-    printf(GREEN"¦   +----------------------------------+  ¦"RESET);
-
-    gotoxy(70,23);
-    printf(GREEN"¦                                          ¦"RESET);
-
-    gotoxy(70,24);
-    printf(GREEN"¦   1. DANG NHAP     0. QUAY LAI          ¦"RESET);
-
-    gotoxy(70,25);
-    printf(GREEN"¦                                          ¦"RESET);
-
-    gotoxy(70,26);
-    printf(GREEN"+------------------------------------------+"RESET);
+    gotoxy(30, 19);
+    printf(GREEN "+------------------------------------------------------------+" RESET);
 }
 
 // Hàm hi?n th? giao di?n d?u vào mã GV
@@ -555,7 +402,9 @@ int dangNhapGiangVien() {
     while (1) {
         system("cls");
         lecturerLoginBox();
+
         gotoxy(57, 12);
+        showCursor(); 
         fflush(stdin);
         scanf("%s", tk);
 
@@ -564,10 +413,13 @@ int dangNhapGiangVien() {
         }
 
         gotoxy(57, 16);
+        showCursor();
         fflush(stdin);
         scanf("%s", mk);
         
-        loadingEffect(52, 21);
+        hideCursor();
+        
+        loadingEffect(52, 21); 
         
         for (i = 0; i < soGV; i++) {
             if (strcmp(tk, taiKhoanGV[i]) == 0 && strcmp(mk, matKhauGV[i]) == 0) {
@@ -601,78 +453,63 @@ int dangNhapGiangVien() {
 int binary_search(char mssv[]);
 
 int dangNhapSinhVien() {
-
-    char mssv[20];
-    char mk[30];
-
-    int k, chon;
+    char tk[30], mk[30];
+    int i;
 
     while (1) {
-
         system("cls");
+        studentLoginBox(); 
+        gotoxy(57, 12);
+        showCursor();
+        fflush(stdin);
+        scanf("%s", tk);
 
-        studentLoginBox();
-
-        printf("\n");
-
-        printf("%45s", "Ten dang nhap    : ");
-        scanf("%s", mssv);
-
-        printf("%45s", "Mat khau: ");
-        scanf("%s", mk);
-
-        k = binary_search(mssv);
-
-        if(k != -1 && strcmp(mk, mkMacDinhSV) == 0) {
-
-            strcpy(svDangNhap, mssv);
-
-            vaiTro = 2;
-
-            system("cls");
-
-            printf("\n\n");
-
-            printCenter(GREEN "DANG NHAP THANH CONG!" RESET);
-
-            printf("\n");
-
-            char tb[100];
-
-            sprintf(tb,
-                    "Xin chao Sinh vien: %s",
-                    tenSV[k]);
-
-            char temp[200];
-
-            sprintf(temp, CYAN "%s" RESET, tb);
-
-            printCenter(temp);
-
-            Sleep(1200);
-
-            return 1;
-        }
-
-        printf("\n");
-        
-
-        printCenter(RED "TEN DANG NHAP HOAC MAT KHAU KHONG DUNG!" RESET);
-
-        printf("\n");
-
-        printCenter("1. Dang nhap lai");
-        printCenter("0. Thoat");
-
-        printf("\n");
-
-        printf("%45s", "Nhap lua chon: ");
-        scanf("%d", &chon);
-
-        if (chon == 0) {
+        if (strcmp(tk, "0") == 0) {
             return 0;
         }
+
+        gotoxy(57, 16);
+        showCursor();
+        fflush(stdin);
+        scanf("%s", mk);
+        
+        hideCursor();
+        
+        loadingEffect(52, 21); 
+        
+        int row;
+        for (row = 21; row <= 22; row++) {
+            gotoxy(35, row);
+            printf("                                                            ");
+        }
+
+        gotoxy(12, 23);
+        printf(CYAN "+---------------------------------------------------------------------------------------------+" RESET);
+
+        for (i = 0; i < n; i++) { 
+            if (strcmp(tk, maSV[i]) == 0 && strcmp(mk, mkMacDinhSV) == 0) {
+                vaiTro = 2; 
+                strcpy(svDangNhap, maSV[i]); 
+
+                gotoxy(48, 21); 
+                printf(GREEN "[ V ] DANG NHAP THANH CONG!" RESET);
+                fflush(stdout);
+                Sleep(1200);
+                return 1;
+            }
+        }
+        gotoxy(12, 23);
+        printf(CYAN "+---------------------------------------------------------------------------------------------+" RESET);
+
+        gotoxy(42, 21);
+        printf(RED "[ X ] MA SINH VIEN HOAC MAT KHAU KHONG CHINH XAC!" RESET);
+        
+        gotoxy(45, 22);
+        printf(YELLOW "Nhan phim bat ky de thuc hien nhap lai..." RESET);
+        
+        getch();
     }
+    return 0;
 }
 
 void menuGiangVien() {
