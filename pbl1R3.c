@@ -98,10 +98,10 @@ void dongBoMangTheoLop(int indexLop) {
     if (indexLop < 0 || indexLop >= so_lop) return;
     
     lopHienTai = indexLop;
-    // –?ng b? si s? n to‡n c?c v?i si s? th?c t? c?a l?p trong struct
+    // √ê?ng b? si s? n to√†n c?c v?i si s? th?c t? c?a l?p trong struct
     n = danhSachLop[lopHienTai].n; 
     
-    // …p c·c con tr? to‡n c?c tr? th?ng v‡o v˘ng nh? l?p tuong ?ng trong struct
+    // √âp c√°c con tr? to√†n c?c tr? th?ng v√†o v√πng nh? l?p tuong ?ng trong struct
     maSV  = danhSachLop[lopHienTai].maSV;
     tenSV = danhSachLop[lopHienTai].tenSV;
     lab1  = danhSachLop[lopHienTai].lab1;
@@ -114,7 +114,7 @@ void dongBoMangTheoLop(int indexLop) {
 
 void khoiTaoDuLieuGoc() {
 
-    danhSachLop[0].soHp = 3; // L?p n‡y ban d?u cÛ 3 mÙn
+    danhSachLop[0].soHp = 3; // L?p n√†y ban d?u c√≥ 3 m√¥n
     strcpy(danhSachLop[0].dsHocPhan[0], "Cau Truc Du Lieu");
     strcpy(danhSachLop[0].dsHocPhan[1], "Phuong Phap Tinh");
     strcpy(danhSachLop[0].dsHocPhan[2], "Toan Roi Rac");
@@ -479,7 +479,6 @@ int dangNhapHeThong() {
         hideCursor();
         loadingEffect(52, 21); 
         
-        // 1. KI?M TRA T¿I KHO?N ADMIN TRU?C
         if (strcmp(tk, "admin") == 0 && strcmp(mk, "123") == 0) {
             vaiTro = 1;
             gotoxy(42, 21); printf("                                                 "); 
@@ -489,7 +488,6 @@ int dangNhapHeThong() {
             return 1; 
         }
 
-        // 2. DUY?T DANH S¡CH GI?NG VI N TRONG STRUCT
         for (i = 0; i < soLuongGV; i++) {
             if (strcmp(tk, danhSachGV[i].taiKhoan) == 0 && strcmp(mk, danhSachGV[i].matKhau) == 0) {
                 
@@ -503,11 +501,11 @@ int dangNhapHeThong() {
 
                 if (indexTimThay != -1) {
                     vaiTro = 2;
-                    // S?A T?I –¬Y: G?i d˙ng tÍn h‡m dongBoMangTheoLop thay vÏ tÍn cu
                     dongBoMangTheoLop(indexTimThay); 
                     
-                    gotoxy(42, 21); printf("                                                 "); 
-                    gotoxy(48, 21); printf(GREEN "[ V ] DANG NHAP THANH CONG!" RESET);
+                    gotoxy(42, 21); printf("                                                                 "); 
+    				gotoxy(40, 21);
+                    printf(GREEN "[ V ] CHAO MUNG GV: %s DANG NHAP THANH CONG!" RESET, danhSachGV[i].tenGV);
                     fflush(stdout);
                     Sleep(1200);
                     return 2; 
@@ -583,7 +581,7 @@ int dangNhapSinhVien() {
 void menuAdmin() {
     system("cls");
     int d;
-    for(d = 0; d < 10; d++) printf("\n"); // –?y menu xu?ng t?m gi?a m‡n hÏnh gi?ng menu GV
+    for(d = 0; d < 10; d++) printf("\n"); // √ê?y menu xu?ng t?m gi?a m√†n h√¨nh gi?ng menu GV
 
     printCenter(CYAN "+----------------------------------------------------------+" RESET);
     printCenter(CYAN "|          VAI TRO: ADMIN (QUAN LY HE THONG)               |" RESET);
@@ -606,7 +604,7 @@ void menuGiangVien() {
     for(d = 0; d < 10; d++) printf("\n");
 
     char tieuDeMenu[100];
-    // V?N D?NG STRUCT: L?y tÍn l?p tr?c ti?p t? danh s·ch l?p c? d?nh
+    // V?N D?NG STRUCT: L?y t√™n l?p tr?c ti?p t? danh s√°ch l?p c? d?nh
     sprintf(tieuDeMenu, CYAN "|                QUAN LY DIEM - LOP: %-10s            |" RESET, danhSachLop[lopHienTai].tenLop);
 
     printCenter(CYAN "+----------------------------------------------------------+" RESET);
@@ -766,17 +764,17 @@ void themHp() {
     
     while (1) {
         if (danhSachLop[lopHienTai].soHp >= mx_hp) {
-            printCenter("DANH SACH HOC PHAN C?A L?P –√ –?Y!");
+            printCenter("DANH SACH HOC PHAN C?A L?P √ê√É √ê?Y!");
             getch();
             return;
         }
         
         printf("%75s", "Nhap ten hoc phan moi (0 de thoat): ");
         
-        // ?? BU?C 1: XÛa b? d?m tru?c khi nh?p chu?i d? tr·nh b? trÙi l?nh
+        // ?? BU?C 1: X√≥a b? d?m tru?c khi nh?p chu?i d? tr√°nh b? tr√¥i l?nh
         fflush(stdin); 
         
-        // ?? BU?C 2: Thay %s b?ng %[^\n] d? cho phÈp d?c c? d?u c·ch cho d?n khi nh?n Enter
+        // ?? BU?C 2: Thay %s b?ng %[^\n] d? cho ph√©p d?c c? d?u c√°ch cho d?n khi nh?n Enter
         scanf(" %[^\n]", tenMoi); 
         
         if (strcmp(tenMoi, "0") == 0) return;
@@ -791,7 +789,7 @@ void themHp() {
         
         if (exists) {
             xoaDongVuaNhap(); 
-            // In thÙng b·o n?u mu?n
+            // In th√¥ng b√°o n?u mu?n
         } else {
             xoaDongVuaNhap();
             strcpy(tenHp, tenMoi);
@@ -826,13 +824,13 @@ int menuHocPhan() {
 
         printf(CYAN);
         printCenter("+-------------------------------------------+");
-        // Hi?n th? rı r‡ng dang ch?n mÙn cho l?p n‡o d? gi?ng viÍn khÙng b? nh?m l?n
+        // Hi?n th? r√µ r√†ng dang ch?n m√¥n cho l?p n√†o d? gi?ng vi√™n kh√¥ng b? nh?m l?n
         sprintf(line, "|        CHON HOC PHAN LOP: %-15s |", danhSachLop[lopHienTai].tenLop);
         printCenter(line);
         printCenter("+-------------------------------------------+");
         printf(RESET);
 
-        // Hi?n th? danh s·ch mÙn tuong ?ng c?a RI NG l?p hi?n t?i
+        // Hi?n th? danh s√°ch m√¥n tuong ?ng c?a RI√äNG l?p hi?n t?i
         int i;
         for (i = 0; i < danhSachLop[lopHienTai].soHp; i++) {
             sprintf(line, "|    %d. %-33s   |", i + 1, danhSachLop[lopHienTai].dsHocPhan[i]);
@@ -840,7 +838,7 @@ int menuHocPhan() {
         }
 
         printCenter("|-------------------------------------------|");
-        // L?a ch?n t?o mÙn m?i s? linh ho?t nh?y theo s? lu?ng mÙn hi?n t?i c?a l?p dÛ
+        // L?a ch?n t?o m√¥n m?i s? linh ho?t nh?y theo s? lu?ng m√¥n hi?n t?i c?a l?p d√≥
         int nutThemMon = danhSachLop[lopHienTai].soHp + 1;
         sprintf(line, "|    %d. Tao hoc phan moi                    |", nutThemMon);
         printCenter(line);
@@ -858,14 +856,14 @@ int menuHocPhan() {
         
         if (chon == 0) return 0;
         
-        // X? l˝ khi ch?n m?t h?c ph?n cÛ s?n c?a l?p
+        // X? l√Ω khi ch?n m?t h?c ph?n c√≥ s?n c?a l?p
         if (chon >= 1 && chon <= danhSachLop[lopHienTai].soHp) {
             strcpy(tenHp, danhSachLop[lopHienTai].dsHocPhan[chon - 1]);
             taoTenFile();
             docFile();
             return 1;
         } 
-        // X? l˝ khi ch?n t?o h?c ph?n m?i cho l?p
+        // X? l√Ω khi ch?n t?o h?c ph?n m?i cho l?p
         else if (chon == nutThemMon) {
             themHp();
         } else {
@@ -2158,13 +2156,13 @@ void In() {
 }
 
 int main() {
-// 1. N?P D? LI?U T¿I KHO?N GI?NG VI N V¿O STRUCT (Quan tr?ng nh?t)
+// 1. N?P D? LI?U T√ÄI KHO?N GI?NG VI√äN V√ÄO STRUCT (Quan tr?ng nh?t)
     khoiTaoTaiKhoanHeThong(); 
 
-    // 2. N?P DANH S¡CH SINH VI N V¿ C¡C L?P 25T_DT1, 25T_DT2 BAN –?U
+    // 2. N?P DANH S√ÅCH SINH VI√äN V√Ä C√ÅC L?P 25T_DT1, 25T_DT2 BAN √ê?U
     khoiTaoDuLieuGoc();
 
-    // 3. THI?T L?P TI?NG VI?T V¿ KÕCH THU?C CONSOLE
+    // 3. THI?T L?P TI?NG VI?T V√Ä K√çCH THU?C CONSOLE
     SetConsoleOutputCP(CP_UTF8);
     system("cls");
     int chon;
@@ -2173,7 +2171,7 @@ int main() {
         chooseRoleBox();
         
         if (scanf("%d", &chon) != 1) {
-            gotoxy(35, 22); // –?t v? trÌ b·o l?i du?i dÚng "Nhap lua chon..."
+            gotoxy(35, 22); // √ê?t v? tr√≠ b√°o l?i du?i d√≤ng "Nhap lua chon..."
             printf(RED "Vui long chi nhap so!" RESET);
             while(getchar() != '\n'); 
             Sleep(1000);
@@ -2181,10 +2179,10 @@ int main() {
         }
 
         switch(chon) {
-            case 1: { // –ANG NH?P CHUNG CHO ADMIN & GI?NG VI N
+            case 1: { // √êANG NH?P CHUNG CHO ADMIN & GI?NG VI√äN
                 int ketQuaDN = dangNhapHeThong(); 
 
-                // --- TRU?NG H?P L¿ ADMIN ---
+                // --- TRU?NG H?P L√Ä ADMIN ---
                 if (ketQuaDN == 1) { 
                     int chonAdmin;
                     int dangTrongMenuAdmin = 1;
@@ -2204,7 +2202,7 @@ int main() {
                             case 3: /* PhanLopGiangVien(); */ break;
                             case 4: /* QuanLyHeThong(); */ break;
                             case 5:
-                                dangTrongMenuAdmin = 0; // Tho·t ra menu chÌnh
+                                dangTrongMenuAdmin = 0; // Tho√°t ra menu ch√≠nh
                                 break;
                             default:
                                 printf(RED "\nLua chon khong hop le!" RESET);
@@ -2213,13 +2211,13 @@ int main() {
                         }
                     }
                 }
-                // --- TRU?NG H?P L¿ GI?NG VI N ---
+                // --- TRU?NG H?P L√Ä GI?NG VI√äN ---
                 else if (ketQuaDN == 2) { 
                     int chonGV;
                     int dangtrongMenu = 1;
 
                     while(dangtrongMenu) {
-                        menuGiangVien(); // H‡m menu gi?ng viÍn c?a b?n
+                        menuGiangVien(); // H√†m menu gi?ng vi√™n c?a b?n
                         if (scanf("%d", &chonGV) != 1) {
                             printf(RED "\nVui long chi nhap so!" RESET);
                             while(getchar() != '\n');
@@ -2234,7 +2232,7 @@ int main() {
                             case 4: SapXep();    break;
                             case 5: In();        break;
                             case 6:
-                                dangtrongMenu = 0; // Tho·t ra menu chÌnh
+                                dangtrongMenu = 0; // Tho√°t ra menu ch√≠nh
                                 break;  
                             default:
                                 printf(RED "\nLua chon khong hop le!" RESET);
