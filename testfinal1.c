@@ -63,8 +63,8 @@ typedef struct {
     int tongTinChiHienTai; 
 } LopHocPhan;
 
-LopSinhHoat dsLopSinhHoat[2]; // Ch? còn 2 l?p g?c: 25T_DT1, 25T_DT2
-LopHocPhan dsLopHocPhan[10];  // Danh sách các l?p h?c ph?n (Ví d?: 25Nh10, 25Nh11...)
+LopSinhHoat dsLopSinhHoat[2]; 
+LopHocPhan dsLopHocPhan[10]; 
 int soLuongLopHP = 0;
 
 GiangVien dsGiangVien[20];
@@ -206,15 +206,15 @@ void khoiTaoDuLieuGoc() {
     initMon(&dsLopHocPhan[0].dsHocPhan[1], "CTMT", "Cau Truc May Tinh", "GV02");
     initMon(&dsLopHocPhan[0].dsHocPhan[2], "CTDL", "Cau Truc Du Lieu", "GV03");
     initMon(&dsLopHocPhan[0].dsHocPhan[3], "TRR",  "Toan Roi Rac", "GV01");
-    initMon(&dsLopHocPhan[0].dsHocPhan[4], "PTT",  "Phuong Phap Tinh", "GV02");
+    initMon(&dsLopHocPhan[0].dsHocPhan[4], "PTT",  "Phuong Phap Tinh", "GV01");
     initMon(&dsLopHocPhan[0].dsHocPhan[5], "CSDL", "Co So Du Lieu", "GV03");
 
     strcpy(dsLopHocPhan[1].tenLop, "25Nh11");
     dsLopHocPhan[1].soLuongHocPhan = 6;
 
     initMon(&dsLopHocPhan[1].dsHocPhan[0], "KTLT", "Ky Thuat Lap Trinh", "GV02");
-    initMon(&dsLopHocPhan[1].dsHocPhan[1], "CTMT", "Cau Truc May Tinh", "GV01");
-    initMon(&dsLopHocPhan[1].dsHocPhan[2], "CTDL", "Cau Truc Du Lieu", "GV02");
+    initMon(&dsLopHocPhan[1].dsHocPhan[1], "CTMT", "Cau Truc May Tinh", "GV02");
+    initMon(&dsLopHocPhan[1].dsHocPhan[2], "CTDL", "Cau Truc Du Lieu", "GV03");
     initMon(&dsLopHocPhan[1].dsHocPhan[3], "TRR",  "Toan Roi Rac", "GV03");
     initMon(&dsLopHocPhan[1].dsHocPhan[4], "PTT",  "Phuong Phap Tinh", "GV01");
     initMon(&dsLopHocPhan[1].dsHocPhan[5], "CSDL", "Co So Du Lieu", "GV02");
