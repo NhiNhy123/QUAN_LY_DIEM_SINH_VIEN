@@ -449,7 +449,6 @@ void DanhSachSV(HocPhan *hp, char* tenLopSinhHoat) {
 
 void drawMainFrame() {
     int y;
-    system("cls");
     SetConsoleOutputCP(CP_UTF8);
     hideCursor();
     gotoxy(12, 3);
@@ -624,11 +623,22 @@ void nhapMatKhau(char mk[], int x, int y) {
     }
 }
 
+void clearCore() {
+    const char *blank = "                                                                                             "; 
+    hideCursor(); 
+    int y;
+    for (y = 6; y <= 22; y++) {
+        gotoxy(13, y);
+        printf("%93s", blank);
+    }
+}
+
 int dangNhapHeThong() {
     char tk[30], mk[30];
     int i;
+    system("cls");
+    drawMainFrame();
     while (1) {
-        system("cls");
         loginBox("DANG NHAP TAI KHOAN GIANG VIEN", "TEN DANG NHAP", MAGENTA);
         gotoxy(57, 12);
         showCursor();
@@ -648,6 +658,7 @@ int dangNhapHeThong() {
             getch();
             return 0;
         }
+        clearCore();
         int timThay = 0;
         for (i = 0; i < soLuongGV; i++) {
             if (strcmp(tk, dsGiangVien[i].taiKhoan) == 0 &&
@@ -669,11 +680,12 @@ int dangNhapHeThong() {
         else {
             gotoxy(42, 21);
             printf("                                             ");
-            gotoxy(42, 21);
+            gotoxy(35, 14); 
             printf(RED "[ X ] TAI KHOAN HOAC MAT KHAU KHONG CHINH XAC!" RESET);
-            gotoxy(45, 22);
+            gotoxy(43, 15);
             printf(YELLOW "Nhan phim bat ky de thu lai..." RESET);
             getch();
+            clearCore();
         }
     }
 }
@@ -710,8 +722,9 @@ int timKiemSinhVienHeThong(char *maSV) {
 
 int dangNhapSinhVien() {
     char tk[30], mk[30];
+    system("cls");
+    drawMainFrame();
     while (1) {
-        system("cls");
         loginBox("DANG NHAP TAI KHOAN SINH VIEN", "MA SINH VIEN", GREEN);
         gotoxy(57, 12);
         showCursor();
@@ -726,6 +739,7 @@ int dangNhapSinhVien() {
         hideCursor();
         loadingEffect(52, 21);
         int tonTai = timKiemSinhVienHeThong(tk);
+        clearCore();
 		if (tonTai == 1 && strcmp(mk, MK_SV_MAC_DINH) == 0) {
             strcpy(svDangNhap, tk);
             gotoxy(48, 21);
@@ -734,12 +748,15 @@ int dangNhapSinhVien() {
             return 1;
         } else {
             gotoxy(42, 21);
-            printf(RED "[ X ] MA SINH VIEN HOAC MAT KHAU SAI!" RESET);
-            gotoxy(45, 22);
-            printf(YELLOW "Nhan phim bat ky de nhap lai..." RESET);
+            printf("                                             ");
+            gotoxy(35, 14); 
+            printf(RED "[ X ] TAI KHOAN HOAC MAT KHAU KHONG CHINH XAC!" RESET);
+            gotoxy(43, 15);
+            printf(YELLOW "Nhan phim bat ky de thu lai..." RESET);
             getch();
-        }
-    }
+            clearCore();
+        }  
+	}
 }
 
 int gvCoDayHocPhan(char* maGV, HocPhan *hp) {
@@ -2151,8 +2168,10 @@ int main() {
 	}
 
     int chon;
-
+    system("cls");    
+    drawMainFrame();
     while (1) {
+    	clearCore();
         chooseRoleBox();
         gotoxy(60, 20);
         showCursor();
