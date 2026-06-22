@@ -670,8 +670,8 @@ int dangNhapHeThong() {
         }
         if (timThay) {
             gotoxy(42, 21);
-            printf("                                                          ");
-            gotoxy(34, 21);
+            printf("                                             ");
+            gotoxy(35, 14); 
             printf(GREEN "[ V ] CHAO MUNG GV: %s DANG NHAP THANH CONG!" RESET, gvDangNhap.tenGV);
             fflush(stdout);
             Sleep(1200);
@@ -742,7 +742,9 @@ int dangNhapSinhVien() {
         clearCore();
 		if (tonTai == 1 && strcmp(mk, MK_SV_MAC_DINH) == 0) {
             strcpy(svDangNhap, tk);
-            gotoxy(48, 21);
+            gotoxy(42, 21);
+            printf("                                             ");
+            gotoxy(43, 14); 
             printf(GREEN "[ V ] DANG NHAP THANH CONG!" RESET);
             Sleep(1200);
             return 1;
@@ -981,6 +983,7 @@ void menuSinhVien(char maTruyenVao[]) {
     printCenter(YELLOW "Nhan phim bat ky de tiep tuc..." RESET);
     getch();
     restoreConsoleSize(&oldRect);
+    system("cls");
 }
 
 int khoaLab1 = 0;
@@ -2220,6 +2223,7 @@ int main() {
 			case 2: {
 				if (dangNhapSinhVien()) {
     			menuSinhVien(svDangNhap);
+    			drawMainFrame();
 				} break;
 			}
             case 0: {
