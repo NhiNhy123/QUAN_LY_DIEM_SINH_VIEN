@@ -2071,18 +2071,19 @@ void In(HocPhan *hp, LopHocPhan *lop) {
     ThongKeHocVu();
     while (1) {
         if (menuHocPhan() == 0) return;
+        lop = &dsLopHocPhan[lopDangChon];
+    	hp = &lop->dsHocPhan[hocPhanDangChon];
         int loaiLoc = 0;
-        while (1) {
-            int demA = 0, demB = 0, demC = 0, demD = 0, demF = 0, demHocLai = 0;
-            float maxTB = -1;
-            char mssvThuKhoa[20] = "", tenThuKhoa[50] = "";
-            char dsHocLaiMa[40][20], dsHocLaiTen[40][50];
-            float dsHocLaiDiem[40];
-            system("cls");
-            printf("\n" GREEN "---------------------------------- BANG DIEM CHI TIET MON: %-5s -----------------------------------\n\n" RESET, hp->tenMon);
-            ThongKeMonHoc(hp, &demA, &demB, &demC, &demD, &demF, &maxTB, mssvThuKhoa, tenThuKhoa, dsHocLaiMa, dsHocLaiTen, dsHocLaiDiem, &demHocLai);
-
+        int demA = 0, demB = 0, demC = 0, demD = 0, demF = 0, demHocLai = 0;
+        float maxTB = -1;
+        char mssvThuKhoa[20] = "", tenThuKhoa[50] = "";
+        char dsHocLaiMa[40][20], dsHocLaiTen[40][50];
+        float dsHocLaiDiem[40];
+        ThongKeMonHoc(hp, &demA, &demB, &demC, &demD, &demF, &maxTB, mssvThuKhoa, tenThuKhoa, dsHocLaiMa, dsHocLaiTen, dsHocLaiDiem, &demHocLai);
+		while (1) {
+			system("cls");
             if (loaiLoc == 0) {
+            	printf("\n" GREEN "---------------------------------- BANG DIEM CHI TIET MON: %-5s -----------------------------------\n\n" RESET, hp->tenMon);
                 DanhSachSV(hp, lop->tenLop);
                 InThongKeVaBaoCao(demA, demB, demC, demD, demF, maxTB, mssvThuKhoa, tenThuKhoa, dsHocLaiMa, dsHocLaiTen, dsHocLaiDiem, demHocLai);
             } else {
@@ -2101,12 +2102,9 @@ void In(HocPhan *hp, LopHocPhan *lop) {
 }
 
 int main() {
-
-    SetConsoleOutputCP(CP_UTF8);
     srand(time(NULL)); 
     
     loadDanhSachGVTuFile();
-    khoiTaoTaiKhoanHeThong();
     khoiTaoDuLieuGoc();
     khoiTaoLopSinhHoat();
     docToanBoHeThong();
