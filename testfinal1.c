@@ -287,8 +287,7 @@ int sinhVienDaCoLop(char *maSV) {
             HocPhan *hp = &dsLopHocPhan[l].dsHocPhan[h];
             for (i = 0; i < hp->soLuongSV; i++) {
                 if (strcmp(hp->dsSV[i].maSV, maSV) == 0) {
-                    if (hp->dsSV[i].final != -1)
-                        return 1;
+                    return 1;
                 }
             }
         }
@@ -1971,7 +1970,10 @@ void ThongKeMonHoc(HocPhan *hp, int *demA, int *demB, int *demC, int *demD, int 
             if (tb < 4 || hp->dsSV[i].final < 4) {
                 strcpy(dsHocLaiMa[*demHocLai], hp->dsSV[i].maSV);
                 strcpy(dsHocLaiTen[*demHocLai], hp->dsSV[i].tenSV);
-                dsHocLaiDiem[*demHocLai] = (tb < hp->dsSV[i].final) ? tb : hp->dsSV[i].final;
+                if(tb < hp->dsSV[i].final)
+    				dsHocLaiDiem[*demHocLai]=tb;
+				else
+    				dsHocLaiDiem[*demHocLai]=hp->dsSV[i].final;
                 (*demHocLai)++;
             }
         }
