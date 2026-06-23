@@ -295,7 +295,7 @@ int sinhVienDaCoLop(char *maSV) {
     return 0;
 }
 
-void phanBoSinhVienVaoLop(LopHocPhan *lop, HocPhan *hp) {
+void phanBoSinhVienVaoLop(HocPhan *hp) {
     int count = 0;
     int maxSVPerHP = 40;
     int i, j;
@@ -335,7 +335,7 @@ void docFile(LopHocPhan *lop, HocPhan *hp) {
     sprintf(filename, "%s_%s.txt", lop->tenLop, hp->maHP);
     FILE *f = fopen(filename, "r");
     if (f == NULL) {
-        phanBoSinhVienVaoLop(lop, hp);
+        phanBoSinhVienVaoLop(hp);
         luuFile(lop, hp);
         return;
     }
@@ -392,7 +392,7 @@ void docToanBoHeThong() {
             fscanf(f, "%9[^|]|%49[^|]|%f\n", hp->maHP, hp->tenMon, &hp->tinChi);
             docFile(lop, hp);
             if (hp->soLuongSV == 0) {
-                phanBoSinhVienVaoLop(lop, hp);
+                phanBoSinhVienVaoLop(hp);
                 luuFile(lop, hp);
             }
         }
