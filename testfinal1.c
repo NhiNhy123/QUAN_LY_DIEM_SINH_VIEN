@@ -1993,9 +1993,12 @@ void InDanhSachLoc(HocPhan *hp, int loaiLoc) {
         SinhVien *sv = &hp->dsSV[i];
         int coDiem = (sv->lab1 != -1 && sv->lab2 != -1 && sv->pt1 != -1 && 
                       sv->pt2 != -1 && sv->pre != -1 && sv->final != -1);
-        
-        float tb = coDiem ? tinhTB_hp(*sv) : 0;
-        char xl = coDiem ? xepLoai(tb) : ' ';
+        float tb = -1;
+		char xl = ' ';
+		if (coDiem) {
+    		tb = tinhTB_hp(*sv);
+    		xl = xepLoai(tb);
+		}
 
         if (xl != loai[loaiLoc]) continue;
 
