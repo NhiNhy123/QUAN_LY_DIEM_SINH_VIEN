@@ -269,7 +269,7 @@ void khoiTaoDuLieuGoc() {
     initMon(&dsLopHocPhan[0].dsHocPhan[5], "CSDL", "Co So Du Lieu", "GV03", 2);
     strcpy(dsLopHocPhan[1].tenLop, "25Nh11");
     dsLopHocPhan[1].soLuongHocPhan = 6;
-    initMon(&dsLopHocPhan[1].dsHocPhan[0], "KTLT", "Ky Thuat Lap Trinh", "GV02", 2);
+    initMon(&dsLopHocPhan[1].dsHocPhan[0], "KTLT", "Ky Thuat Lap Trinh", "GV02", 3);
     initMon(&dsLopHocPhan[1].dsHocPhan[1], "CTMT", "Cau Truc May Tinh", "GV01", 2);
     initMon(&dsLopHocPhan[1].dsHocPhan[2], "CTDL", "Cau Truc Du Lieu", "GV02", 2);
     initMon(&dsLopHocPhan[1].dsHocPhan[3], "TRR",  "Toan Roi Rac", "GV03", 3);
@@ -992,9 +992,9 @@ int khoaPT2 = 0;
 int khoaPre = 0;
 int khoaFinal = 0;
 
-void luuTrangThaiCot(HocPhan *hp) {
+void luuTrangThaiCot(LopHocPhan *lop, HocPhan *hp) {
     char fileTrangThai[100];
-    sprintf(fileTrangThai, "%s_trangthai.txt", hp->maHP);
+    sprintf(fileTrangThai, "%s_%s_trangthai.txt", lop->tenLop, hp->maHP);
     FILE *f = fopen(fileTrangThai, "w");
     if (f == NULL)
         return;
@@ -1002,9 +1002,9 @@ void luuTrangThaiCot(HocPhan *hp) {
     fclose(f);
 }
 
-void docTrangThaiCot(HocPhan *hp) {
+void docTrangThaiCot(LopHocPhan *lop, HocPhan *hp) {
     char fileTrangThai[100];
-    sprintf(fileTrangThai, "%s_trangthai.txt", hp->maHP);
+    sprintf(fileTrangThai, "%s_%s_trangthai.txt", lop->tenLop, hp->maHP);
     FILE *f = fopen(fileTrangThai, "r");
     if (f == NULL) {
         khoaLab1 = 0;
@@ -1099,7 +1099,7 @@ void NhapTheoCot(LopHocPhan *lop, HocPhan *hp, char tenCot[]) {
             while (getchar() != '\n');
             if (chon == 1) {
                 *khoaCot = 1;
-                luuTrangThaiCot(hp);
+                luuTrangThaiCot(lop,hp);
                 luuFile(lop, hp);
                 printf(GREEN "\n[THANH CONG] Da xac nhan cot %s!" RESET, tenCot);
                 Sleep(1200);
@@ -1193,7 +1193,7 @@ void Nhap() {
     	int i;
         LopHocPhan *lop = &dsLopHocPhan[lopDangChon];
         HocPhan *hp = &lop->dsHocPhan[hocPhanDangChon];
-        docTrangThaiCot(hp);
+        docTrangThaiCot(lop,hp);
         while (1) {
             system("cls");
             char line[150];
@@ -1553,7 +1553,7 @@ void Sua() {
 		}
         char fileSua[100];
         sprintf(fileSua, "%s_%s.txt", lop->tenLop, hp->maHP);
-        docTrangThaiCot(hp);
+        docTrangThaiCot(lop,hp);
         int slTam, timThaySVTrongFile = 0;
         char maTam[40][20], tenTam[40][100], lopTam[40][50];;
         float bL1[40], bL2[40], bP1[40], bP2[40], bPr[40], bFi[40], diemHienTai = -1.0;
